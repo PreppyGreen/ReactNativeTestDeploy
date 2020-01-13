@@ -22,3 +22,20 @@ This will start Metro Bundler and the launch the iOS Simulator.
 ```
 npx react-native run-android
 ```
+
+# App Center
+
+https://appcenter.ms/users/oliver.booth-infinityworks.com/apps/testdeploy/
+
+Add Crash and Analytics services to your app:
+
+```
+yarn add appcenter appcenter-analytics appcenter-crashes --save-exact
+```
+
+Install CocoaPods dependencies
+
+```
+cd ios
+pod install
+```

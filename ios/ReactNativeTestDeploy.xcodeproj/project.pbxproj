@@ -19,6 +19,7 @@
 		B5411E0BDFB1906FA83F5F4E /* libPods-ReactNativeTestDeploy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8908ABA6D90D8A7272C932 /* libPods-ReactNativeTestDeploy.a */; };
 		BBB6CE2541DE21B0A4DA0B2F /* libPods-ReactNativeTestDeploy-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF70047E1CEE1E32481BEC74 /* libPods-ReactNativeTestDeploy-tvOS.a */; };
 		D93E1B6239607FE4EA3E6AC6 /* libPods-ReactNativeTestDeployTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8EB453D747AB89F67DD884 /* libPods-ReactNativeTestDeployTests.a */; };
+		E7F07B3023CCD621003E1E78 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7F07B2F23CCD621003E1E78 /* AppCenter-Config.plist */; };
 		FEA1B5E41A55520C50DDFD5E /* libPods-ReactNativeTestDeploy-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93921905F9B647953C7D35EC /* libPods-ReactNativeTestDeploy-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		B492033F6CAE67550BAFE018 /* Pods-ReactNativeTestDeployTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeTestDeployTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeTestDeployTests/Pods-ReactNativeTestDeployTests.release.xcconfig"; sourceTree = "<group>"; };
 		BEBE92904C806EBC90241744 /* Pods-ReactNativeTestDeploy-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeTestDeploy-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeTestDeploy-tvOS/Pods-ReactNativeTestDeploy-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		CE8908ABA6D90D8A7272C932 /* libPods-ReactNativeTestDeploy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeTestDeploy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7F07B2F23CCD621003E1E78 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F4DAF372EFB6C22FCA25BBAB /* Pods-ReactNativeTestDeploy-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeTestDeploy-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeTestDeploy-tvOSTests/Pods-ReactNativeTestDeploy-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				E7F07B2F23CCD621003E1E78 /* AppCenter-Config.plist */,
 			);
 			name = ReactNativeTestDeploy;
 			sourceTree = "<group>";
@@ -194,7 +197,6 @@
 				7199C595499746E006127F4F /* Pods-ReactNativeTestDeployTests.debug.xcconfig */,
 				B492033F6CAE67550BAFE018 /* Pods-ReactNativeTestDeployTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +310,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +341,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				E7F07B3023CCD621003E1E78 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
