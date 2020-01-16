@@ -1232,6 +1232,13 @@ appcenter-analytics@^2.6.1:
   dependencies:
     appcenter "2.6.1"
 
+appcenter-auth@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/appcenter-auth/-/appcenter-auth-2.6.1.tgz#ff8f57ae5ea9625e6c3f5c99d2e9d73b8382f82f"
+  integrity sha512-u2mEOHmC/GE7jCWTBLP1a7epPdMwIP3S5ib02XaBRYgB/gSvcIBRqgx4sKuHYeT4jykIIxBA8xuCmXp23A/V0w==
+  dependencies:
+    appcenter "2.6.1"
+
 appcenter-crashes@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/appcenter-crashes/-/appcenter-crashes-2.6.1.tgz#b73a5491c9af4ea817a4f9d810a4131ce1232d41"
@@ -1250,6 +1257,13 @@ appcenter-link-scripts@2.6.1:
     plist "3.0.1"
     which "1.2.11"
     xcode "2.0.0"
+
+appcenter-push@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/appcenter-push/-/appcenter-push-2.6.1.tgz#3d8f4cce53ea90b3c7a136a7f1e779cc89223c90"
+  integrity sha512-Yc8e330Gp9ZAxmumhEjsvRjLXYL+1YMjNdgjBz1EGf20asTxs/F1ucWIUIfnpxhmaFzHKN6e3ATKw5WzLfbpuA==
+  dependencies:
+    appcenter "2.6.1"
 
 appcenter@2.6.1, appcenter@^2.6.1:
   version "2.6.1"
