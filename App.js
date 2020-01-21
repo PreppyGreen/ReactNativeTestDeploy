@@ -1,114 +1,75 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Button } from 'react-native-elements';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+function HomeScreen({ navigation }: any) {
+	return (
+		<View style={styles.container} testID="app-root" accessibilityLabel="app-root">
+			<Text>Home Screen</Text>
+			<Button title="Go to the details screen"
+				type="outline"
+				testID="go-to-details-button"
+				accessibilityLabel="go-to-details-button"
+				onPress={() => navigation.navigate('Details', {
+					itemId: 123,
+					otherParam: 'anything that you want here',
+				})}
+			/>
+		</View>
+	);
+}
+HomeScreen.navigationOptions = {
+	title: 'Home screen'
+}
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One - build 4</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+function DetailsScreen({ navigation }: any) {
+	return (
+		<View style={styles.container}>
+			<Text>Details Screen</Text>
+			<Text>
+				itemId: {JSON.stringify(navigation.getParam('itemId', null))}
+			</Text>
+			<Text>
+				otherParam: {JSON.stringify(navigation.getParam('otherParam', null))}
+			</Text>
+			<Text>
+				somer otherParam: {JSON.stringify(navigation.getParam('doesNotExist', 'This param does not exist'))}
+			</Text>
+			<Button title="Go to the details screen again?"
+				type="outline"
+				onPress={() => navigation.push('Details')}
+			/>
+			<Button title="Go to Home"
+				type="outline"
+				onPress={() => navigation.navigate('Home')}
+			/>
+			<Button title="Go back"
+				type="outline"
+				onPress={() => navigation.goBack()}
+			/>
+			<Button title="Set the id to something else"
+				type="outline"
+				onPress={() => navigation.setParams({ itemId: Math.round (Math.random() * 100) })}
+			/>
+		</View>
+	);
+}
+const AppNavigator = createStackNavigator({
+	Home: HomeScreen,
+	Details: DetailsScreen,
+}, {
+	initialRouteName: 'Home'
 });
 
-export default App;
+export default createAppContainer(AppNavigator);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
