@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements';
 
 function HomeScreen({ navigation }: any) {
 	return (
-		<View style={styles.container} testID="app-root" accessibilityLabel="app-root">
+		<View style={styles.container} testID="app-home" accessibilityLabel="app-home">
 			<Text>Home Screen</Text>
 			<Button title="Go to the details screen"
 				type="outline"
@@ -26,7 +26,7 @@ HomeScreen.navigationOptions = {
 
 function DetailsScreen({ navigation }: any) {
 	return (
-		<View style={styles.container}>
+		<View style={styles.container} testID="app-details" accessibilityLabel="app-details">
 			<Text>Details Screen</Text>
 			<Text>
 				itemId: {JSON.stringify(navigation.getParam('itemId', null))}
