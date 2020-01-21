@@ -19,7 +19,7 @@ $ npx react-native run-ios --configuration Release
 
 # Build the Android app
 
-The android app ca nbe built using the following command
+The android app can be built using the following command
 
 ```
 $ npx react-native run-android --variant=release
