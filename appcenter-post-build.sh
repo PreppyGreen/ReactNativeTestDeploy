@@ -1,24 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# if [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
-#     if [ "$APPCENTER_BRANCH" == "master" ];
-#      then
-# 		 	echo
-#         curl \
-#         -F "status=2" \
-#         -F "ipa=@$APPCENTER_OUTPUT_DIRECTORY/MyApps.ipa" \
-#         -H "X-HockeyAppToken: $HOCKEYAPP_API_TOKEN" \
-#         https://rink.hockeyapp.net/api/2/apps/$HOCKEYAPP_APP_ID/app_versions/upload
-#     else
-#         echo "Current branch is $APPCENTER_BRANCH"
-#     fi
-# fi
 if [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
 	if [ "$APPCENTER_BRANCH" == "master" ]; then
-		echo "*** Current branch is $APPCENTER_BRANCH"
-		echo "*** Output directory $APPCENTER_OUTPUT_DIRECTORY"
-		echo "*** with the following contents"
-		ls -a $APPCENTER_OUTPUT_DIRECTORY
+		echo "Package tests and packages with Maven"
+		cd e2e/iOS && mvn -DskipTests -P prepare-for-upload package
+
+		echo "Upload and schedule tests on real devices"
+		appcenter test run appium --app "$APP_NAME" --devices $DEVICE_ID --app-path $APPCENTER_OUTPUT_DIRECTORY/ReactNativeTestDeploy.ipa --test-series "launch-tests" --locale "en_US" --build-dir target/upload
 	else
 		echo "Build did not succeed, cancelling postbuild script"
 	fi
