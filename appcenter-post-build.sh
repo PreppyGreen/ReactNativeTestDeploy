@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Checking the node version in the post build script"
-node -v
-echo "Checking if nvm is installed"
-which nvm
+echo "Install App Center CLI"
+npm i -g appcenter-cli
+
+echo "Logging into the App Center"
+appcenter login --token $APP_CENTER_LOGIN_TOKEN
 
 if [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
 	if [ "$APPCENTER_BRANCH" == "master" ]; then
