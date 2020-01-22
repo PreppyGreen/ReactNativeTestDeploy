@@ -6,8 +6,10 @@
     "android": "react-native run-android",
 		"ios": "react-native run-ios",
 		"ios:build": "react-native run-ios --configuration Release",
+		"postios:build": "rm -rf ReactNativeTestDeploy.app && cp -R ios/build/ReactNativeTestDeploy/Build/Products/Release-iphonesimulator/ReactNativeTestDeploy.app .",
     "start": "react-native start",
     "test": "jest",
+		"test:e2e": "npm run ios:build && cd e2e/iOS && mvn clean && mvn test",
     "lint": "eslint ."
   },
   "dependencies": {

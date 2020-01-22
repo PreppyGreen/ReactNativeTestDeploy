@@ -23,9 +23,9 @@ public class LaunchTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 				capabilities.setCapability("automationName", "XCUITest");
 				capabilities.setCapability("platformName", "iOS");
-				capabilities.setCapability("platformVersion", "12.3");
-        capabilities.setCapability("deviceName", "iPhone X");
-        capabilities.setCapability("app", "path/to/your/.app");
+				capabilities.setCapability("platformVersion", "13.3");
+        capabilities.setCapability("deviceName", "iPhone 11");
+        capabilities.setCapability("app", "/Users/oliechan/Projects/Avicenna/spikes/ReactNativeTestDeploy/ReactNativeTestDeploy.app"); //TODO: Make this more reusable
 
         URL url = new URL("http://localhost:4723/wd/hub");
 
