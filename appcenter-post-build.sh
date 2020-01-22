@@ -13,8 +13,13 @@
 #         echo "Current branch is $APPCENTER_BRANCH"
 #     fi
 # fi
-
-if [ "$APPCENTER_BRANCH" == "master" ]; then
-	echo "*** Current branch is $APPCENTER_BRANCH"
-	echo "*** Output directory $APPCENTER_OUTPUT_DIRECTORY"
+if [ "$AGENT_JOBSTATUS" == "Succeeded" ]; then
+	if [ "$APPCENTER_BRANCH" == "master" ]; then
+		echo "*** Current branch is $APPCENTER_BRANCH"
+		echo "*** Output directory $APPCENTER_OUTPUT_DIRECTORY"
+		echo "*** with the following contents"
+		ls -a $APPCENTER_OUTPUT_DIRECTORY
+	else
+		echo "Build did not succeed, cancelling postbuild script"
+	fi
 fi
