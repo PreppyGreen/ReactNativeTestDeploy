@@ -4,19 +4,31 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+		"ios": "react-native run-ios",
+		"ios:build": "react-native run-ios --configuration Release",
+		"postios:build": "rm -rf ReactNativeTestDeploy.app && cp -R ios/build/ReactNativeTestDeploy/Build/Products/Release-iphonesimulator/ReactNativeTestDeploy.app .",
     "start": "react-native start",
     "test": "jest",
+		"test:e2e": "npm run ios:build && cd e2e/iOS && mvn clean && mvn test",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.6",
     "appcenter": "^2.6.1",
     "appcenter-analytics": "^2.6.1",
     "appcenter-auth": "^2.6.1",
     "appcenter-crashes": "^2.6.1",
     "appcenter-push": "^2.6.1",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "0.61.5",
+    "react-native-elements": "^1.2.7",
+    "react-native-gesture-handler": "^1.5.3",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.6.2",
+    "react-native-screens": "^2.0.0-alpha.27",
+    "react-native-vector-icons": "^6.6.0",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^2.0.15"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
