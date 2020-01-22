@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Set node version to .nvmrc version
+nvm install
 
 # Install App Center CLI
 npm install -g appcenter-CLI
