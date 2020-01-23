@@ -48,7 +48,7 @@ export default function TextAutoCompleteScreen() {
 		</View>
 	);
 }
-
+// This api searches by the first letter, additional letters will just return an empty response
 const api = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f';
 async function searchCocktails(search: string): Promise<string[]> {
 	try {
