@@ -25,7 +25,7 @@ function HomeScreen({ navigation }: any) {
 				onPress={() => navigation.navigate('TextAutoComplete')}
 			/>
 		</View>
-	);
+	)
 }
 HomeScreen.navigationOptions = {
 	title: 'Home screen'

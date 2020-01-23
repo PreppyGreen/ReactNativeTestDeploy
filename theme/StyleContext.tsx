@@ -7,7 +7,14 @@ const styles =  StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+	},
+	autoCompleteInputContainer: {
+		backgroundColor: 'yellow',
+		width: '80%',
+	},
+	listText: {
+		width: '100%',
+	},
 });
 
 export const StyleContext = createContext(styles);
