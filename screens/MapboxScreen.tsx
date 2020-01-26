@@ -13,7 +13,12 @@ export default function MapboxScreen() {
 		<View style={styleContext.container}
 		>
 			<Text>ADD MAPS HERE</Text>
-			<MapboxGL.MapView style={styleContext.container}/>
+			<MapboxGL.MapView style={{
+				height: '100%',
+				width: '100%',
+			}}
+				styleURL={MapboxGL.StyleURL.Street}
+			/>
 		</View>
 	);
 }
