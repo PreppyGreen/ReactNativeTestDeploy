@@ -11,7 +11,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:e2e": "npm run ios:build && cd e2e/iOS && mvn clean && mvn test",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "reset": "watchman watch-del-all && npm cache clear --force && npm i && rm -rf /tmp/metro-*"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",

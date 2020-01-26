@@ -18,11 +18,17 @@ function HomeScreen({ navigation }: any) {
 					otherParam: 'anything that you want here',
 				})}
 			/>
-			<Button title="Go the example page with text autocomplete"
+			<Button title="Go to the example page with text autocomplete"
 				type="outline"
 				testID="go-to-text-autocomplete-page"
 				accessibilityLabel="go-to-text-autocomplete-page"
 				onPress={() => navigation.navigate('TextAutoComplete')}
+			/>
+			<Button title="Go to the mapbox screen"
+				type="outline"
+				testID="go-to-mapbox-screen"
+				accessibilityLabel="go-to-mapbox-screen"
+				onPress={() => navigation.navigate('Mapbox')}
 			/>
 		</View>
 	)

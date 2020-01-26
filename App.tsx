@@ -2,7 +2,12 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { HomeScreen, TextAutoCompleteScreen, DetailsScreen } from './screens';
+import {
+	HomeScreen,
+	TextAutoCompleteScreen,
+	DetailsScreen,
+	MapboxScreen
+} from './screens';
 import StyleProvider from './theme/StyleContext';
 
 
@@ -10,6 +15,7 @@ const AppNavigator = createStackNavigator({
 	Home: HomeScreen,
 	Details: DetailsScreen,
 	TextAutoComplete: TextAutoCompleteScreen,
+	Mapbox: MapboxScreen,
 }, {
 	initialRouteName: 'Home'
 });
