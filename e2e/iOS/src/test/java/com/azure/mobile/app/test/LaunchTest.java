@@ -60,6 +60,22 @@ public class LaunchTest {
 
 		}
 
+		@Test
+		public void navigateToMapsScreenTest() {
+
+			try {
+				Thread.sleep(3000);
+				MobileElement button = driver.findElementByAccessibilityId("go-to-mapbox-screen-button");
+				button.click();
+				Thread.sleep(10000);
+			} catch (Exception ex) {
+
+			}
+			driver.label("Has navigated to the map screen");
+
+
+		}
+
     // @Test
     public void tapRandomButtonsTest() {
         Random rand = new Random();
