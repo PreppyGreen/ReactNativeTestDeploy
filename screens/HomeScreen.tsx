@@ -30,6 +30,12 @@ function HomeScreen({ navigation }: any) {
 				accessibilityLabel="go-to-mapbox-screen-button"
 				onPress={() => navigation.navigate('Mapbox')}
 			/>
+			<Button title="Go to the calendar screen"
+				type="outline"
+				testID="go-to-calendar-screen-button"
+				accessibilityLabel="go-to-calendar-screen-button"
+				onPress={() => navigation.navigate('Calendar')}
+			/>
 		</View>
 	)
 }
