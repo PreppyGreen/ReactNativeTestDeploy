@@ -71,7 +71,7 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation/.*|@react-native-community/masked-view))"
+      "node_modules/(?!((jest-)?react-native|react-navigation|@react-navigation/.*|@react-native-community/masked-view|@react-native-mapbox-gl/maps/*))"
     ],
     "globals": {
       "ts-jest": {

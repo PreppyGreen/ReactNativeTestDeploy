@@ -44,3 +44,12 @@ jest.mock('react-native-gesture-handler/DrawerLayout', () => {
     Directions: null,
   };
 });
+
+jest.mock('@react-native-mapbox-gl/maps', () => {
+	return {
+		StyleURL: {
+			Street: null
+		},
+		setAccessToken: () => {},
+	}
+})
