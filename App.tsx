@@ -8,6 +8,7 @@ import {
 	DetailsScreen,
 	MapboxScreen,
 	CalendarScreen,
+	AgendaScreen,
 } from './screens';
 import StyleProvider from './theme/StyleContext';
 
@@ -18,6 +19,7 @@ const AppNavigator = createStackNavigator({
 	TextAutoComplete: TextAutoCompleteScreen,
 	Mapbox: MapboxScreen,
 	Calendar: CalendarScreen,
+	Agenda: AgendaScreen,
 }, {
 	initialRouteName: 'Home'
 });
