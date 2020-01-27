@@ -26,8 +26,8 @@ function HomeScreen({ navigation }: any) {
 			/>
 			<Button title="Go to the mapbox screen"
 				type="outline"
-				testID="go-to-mapbox-screen"
-				accessibilityLabel="go-to-mapbox-screen"
+				testID="go-to-mapbox-screen-button"
+				accessibilityLabel="go-to-mapbox-screen-button"
 				onPress={() => navigation.navigate('Mapbox')}
 			/>
 		</View>
