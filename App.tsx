@@ -11,7 +11,8 @@ import {
 	AgendaScreen,
 } from './screens';
 import {
-	LandingScreen
+	LandingScreen,
+	PlaceOrderScreen,
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 
@@ -29,6 +30,7 @@ const AppNavigator = createStackNavigator({
 
 const ProofOfConcepApptNavigator = createStackNavigator({
 	Landing: LandingScreen,
+	PlaceOrder: PlaceOrderScreen
 }, {
 	initialRouteName: 'Landing'
 })
