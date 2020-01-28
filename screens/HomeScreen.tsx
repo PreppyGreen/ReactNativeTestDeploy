@@ -42,6 +42,12 @@ function HomeScreen({ navigation }: any) {
 				accessibilityLabel="go-to-agenda-screen-button"
 				onPress={() => navigation.navigate('Agenda')}
 			/>
+			<Button title="Go to the slider screen"
+				type="outline"
+				testID="go-to-slider-screen"
+				accessibilityLabel="go-to-slider-screen"
+				onPress={() => navigation.navigate('Slider')}
+			/>
 		</View>
 	)
 }

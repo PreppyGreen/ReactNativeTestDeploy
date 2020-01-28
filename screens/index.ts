@@ -4,3 +4,4 @@ export { default as TextAutoCompleteScreen } from './TextAutoCompleteScreen';
 export { default as MapboxScreen } from './MapboxScreen';
 export { default as CalendarScreen } from './CalendarScreen';
 export { default as AgendaScreen } from './AgendaScreen';
+export { default as SliderScreen } from './SliderScreen';
