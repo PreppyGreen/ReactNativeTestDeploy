@@ -2,13 +2,23 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
+import { NavigationStackProp } from 'react-navigation-stack';
+import { percentageHeight } from '../theme/utils';
 export default HomeScreen;
 
-function HomeScreen({ navigation }: any) {
+function HomeScreen({ navigation }: {
+	navigation: NavigationStackProp
+}) {
 	const styleContext = useContext(StyleContext);
 	return (
 		<View style={styleContext.container} testID="app-home" accessibilityLabel="app-home">
-			<Text>Home Screen</Text>
+			<Button title="Go to landing page"
+				type="solid"
+				style={{
+					marginBottom: percentageHeight(5),
+				}}
+				onPress={() => navigation.navigate('Landing')}
+			/>
 			<Button title="Go to the details screen"
 				type="outline"
 				testID="go-to-details-button"

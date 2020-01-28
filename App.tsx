@@ -10,6 +10,12 @@ import {
 	CalendarScreen,
 	AgendaScreen,
 } from './screens';
+import {
+	LandingScreen,
+	PlaceOrderScreen,
+	OrderPlacedScreen,
+	OrderViewScreen
+} from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 
 
@@ -20,6 +26,10 @@ const AppNavigator = createStackNavigator({
 	Mapbox: MapboxScreen,
 	Calendar: CalendarScreen,
 	Agenda: AgendaScreen,
+	Landing: LandingScreen,
+	PlaceOrder: PlaceOrderScreen,
+	OrderPlaced: OrderPlacedScreen,
+	OrderView: OrderViewScreen,
 }, {
 	initialRouteName: 'Home'
 });
