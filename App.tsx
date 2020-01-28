@@ -10,6 +10,9 @@ import {
 	CalendarScreen,
 	AgendaScreen,
 } from './screens';
+import {
+	LandingScreen
+} from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 
 
@@ -24,8 +27,20 @@ const AppNavigator = createStackNavigator({
 	initialRouteName: 'Home'
 });
 
-export default function App() {
-	const Navigator = createAppContainer(AppNavigator);
+const ProofOfConcepApptNavigator = createStackNavigator({
+	Landing: LandingScreen,
+}, {
+	initialRouteName: 'Landing'
+})
+
+// export default function App() {
+// 	const Navigator = createAppContainer(AppNavigator);
+// 	return <StyleProvider>
+// 		<Navigator />
+// 	</StyleProvider>
+// }
+export default function ProofOfConceptApp() {
+	const Navigator = createAppContainer(ProofOfConcepApptNavigator);
 	return <StyleProvider>
 		<Navigator />
 	</StyleProvider>
