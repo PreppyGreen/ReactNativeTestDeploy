@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { StyleSheet } from 'react-native';
+import { TITLE_FONT_SIZE } from './typography';
 
 const styles =  StyleSheet.create({
 	container: {
@@ -14,6 +15,9 @@ const styles =  StyleSheet.create({
 	},
 	listText: {
 		width: '100%',
+	},
+	title: {
+		fontSize: TITLE_FONT_SIZE,
 	},
 });
 

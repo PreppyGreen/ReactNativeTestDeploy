@@ -1,13 +1,12 @@
+// @ts-nocheck
+
 import React, { useContext, useState } from 'react';
-import { StyleContext } from '../theme/StyleContext';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 export default function CalendarScreen() {
-  const styleContext = useContext(StyleContext);
-  const [selected, setSelected]: [any, Function] = useState(undefined);
+  const [selected, setSelected]: [string, Function] = useState('');
   const onDayPress = (day: any) => setSelected(day.dayString);
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={styles.text}>Calendar with selectable date</Text>
@@ -53,7 +52,6 @@ export default function CalendarScreen() {
 
       <Text style={styles.text}>Calendar with period marking and spinner</Text>
       <Calendar
-        // style={styles.calendar}
         current={'2012-05-16'}
         minDate={'2012-05-10'}
         displayLoadingIndicator
@@ -68,7 +66,6 @@ export default function CalendarScreen() {
           indicatorColor: 'white',
           selectedDayBackgroundColor: '#333248',
           arrowColor: 'white',
-          // textDisabledColor: 'red',
           'stylesheet.calendar.header': {
             week: {
               marginTop: 5,
@@ -145,7 +142,7 @@ export default function CalendarScreen() {
       <Text style={styles.text}>Custom calendar with custom marking type</Text>
       <Calendar
         style={styles.calendar}
-        onDayLongPress={this.onDayLongPress}
+        onDayLongPress={onDayPress}
         hideExtraDays
         current={'2018-03-01'}
         minDate={'2018-03-01'}
