@@ -4,6 +4,12 @@ import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 
+
+/*
+ - Make a network request to retrieve the list of medicines
+ - Display the list of orders and stuff in a list
+ - Have a button that navigates to the screen where you can place a order
+*/
 export default function LandingScreen({
   navigation,
 }: {

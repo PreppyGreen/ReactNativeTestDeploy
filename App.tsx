@@ -13,6 +13,8 @@ import {
 import {
 	LandingScreen,
 	PlaceOrderScreen,
+	OrderPlacedScreen,
+	OrderViewScreen
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 
@@ -30,7 +32,9 @@ const AppNavigator = createStackNavigator({
 
 const ProofOfConcepApptNavigator = createStackNavigator({
 	Landing: LandingScreen,
-	PlaceOrder: PlaceOrderScreen
+	PlaceOrder: PlaceOrderScreen,
+	OrderPlaced: OrderPlacedScreen,
+	OrderView: OrderViewScreen,
 }, {
 	initialRouteName: 'Landing'
 })
