@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
+import { percentageHeight } from '../theme/utils';
 export default HomeScreen;
 
 function HomeScreen({ navigation }: {
@@ -13,6 +14,9 @@ function HomeScreen({ navigation }: {
 		<View style={styleContext.container} testID="app-home" accessibilityLabel="app-home">
 			<Button title="Go to landing page"
 				type="solid"
+				style={{
+					marginBottom: percentageHeight(5),
+				}}
 				onPress={() => navigation.navigate('Landing')}
 			/>
 			<Button title="Go to the details screen"
