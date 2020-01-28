@@ -26,27 +26,16 @@ const AppNavigator = createStackNavigator({
 	Mapbox: MapboxScreen,
 	Calendar: CalendarScreen,
 	Agenda: AgendaScreen,
-}, {
-	initialRouteName: 'Home'
-});
-
-const ProofOfConcepApptNavigator = createStackNavigator({
 	Landing: LandingScreen,
 	PlaceOrder: PlaceOrderScreen,
 	OrderPlaced: OrderPlacedScreen,
 	OrderView: OrderViewScreen,
 }, {
-	initialRouteName: 'Landing'
-})
+	initialRouteName: 'Home'
+});
 
-// export default function App() {
-// 	const Navigator = createAppContainer(AppNavigator);
-// 	return <StyleProvider>
-// 		<Navigator />
-// 	</StyleProvider>
-// }
-export default function ProofOfConceptApp() {
-	const Navigator = createAppContainer(ProofOfConcepApptNavigator);
+export default function App() {
+	const Navigator = createAppContainer(AppNavigator);
 	return <StyleProvider>
 		<Navigator />
 	</StyleProvider>
