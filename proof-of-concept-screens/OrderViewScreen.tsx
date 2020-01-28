@@ -8,12 +8,12 @@ import { percentageWidth, percentageHeight } from '../theme/utils';
 const DOT_SIZE = 40;
 const LINE_WIDTH = 3;
 export default function OrderViewScreen() {
-  const styleContext = useContext(StyleContext);
 
   return (
     <View
       style={{
-        justifyContent: 'space-evenly',
+				flex: 1,
+        justifyContent: 'center',
         alignItems: 'flex-start',
         padding: '10%',
       }}>
@@ -27,6 +27,7 @@ export default function OrderViewScreen() {
 }
 
 function ProgressSection({ completed, text }: any) {
+  const styleContext = useContext(StyleContext);
   return (
     <View
       style={{
@@ -36,7 +37,7 @@ function ProgressSection({ completed, text }: any) {
       <View style={{ marginRight: percentageWidth(10) }}>
         <ProgressDot completed={completed} />
       </View>
-      <Text>{text}</Text>
+      <Text style={styleContext.title}>{text}</Text>
     </View>
   );
 }
