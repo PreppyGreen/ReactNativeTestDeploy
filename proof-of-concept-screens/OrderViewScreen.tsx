@@ -44,7 +44,7 @@ function ProgressSection({ completed, text }: any) {
 function Line() {
   return (
     <View style={{
-			paddingLeft: (DOT_SIZE) / 2 - LINE_WIDTH,
+			paddingLeft: DOT_SIZE / 2 - LINE_WIDTH * 1.5,
 		}}>
       <View
         style={{
