@@ -22,6 +22,8 @@ export default function OrderViewScreen() {
       <ProgressSection completed={false} text="Approved" />
       <Line />
       <ProgressSection completed={false} text="Ready for collection" />
+      <Line />
+      <ProgressSection completed={false} text="Collected" />
     </View>
   );
 }
