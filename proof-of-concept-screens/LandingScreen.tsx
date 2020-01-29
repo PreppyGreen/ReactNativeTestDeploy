@@ -39,7 +39,10 @@ export default function LandingScreen({
       }
     }
     fetchOrders();
-  }, []);
+	}, []);
+	//TODO: Make this code a bit more dry;
+	const activeOrders = orders.filter(o => o.status != 'Collected');
+	const fulfilledOrders = orders.filter(o => o.status == 'Collected');
   return (
     <SafeAreaView style={styleContext.container}>
       <View
@@ -53,7 +56,7 @@ export default function LandingScreen({
           }}>
           <Text style={styleContext.title}>Active orders</Text>
           <FlatList
-            data={orders}
+            data={activeOrders}
             renderItem={({ item }) => (
               <Order order={item} navigation={navigation} />
             )}
@@ -65,8 +68,13 @@ export default function LandingScreen({
             flex: 1,
           }}>
           <Text style={styleContext.title}>Fulfilled orders</Text>
-          {/* TODO: ADD A LIST HERE */}
-        </View>
+					<FlatList
+            data={fulfilledOrders}
+            renderItem={({ item }) => (
+              <Order order={item} navigation={navigation} />
+            )}
+            keyExtractor={item => item.id}
+          />        </View>
 
         <Button
           title="Place order"

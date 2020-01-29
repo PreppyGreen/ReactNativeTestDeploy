@@ -20,8 +20,14 @@ export default function OrderViewScreen({
   }>;
 }) {
   Reactotron.log('nav props are', navigation.getParam('order'));
+  const order: OrderType = navigation.getParam('order');
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
       <View
         style={{
           flex: 1,
@@ -29,13 +35,25 @@ export default function OrderViewScreen({
           alignItems: 'flex-start',
           padding: '10%',
         }}>
-        <ProgressSection completed={true} text="Sent to pharmacy" />
+        <ProgressSection
+          completed={orderStatus('New', order.status)}
+          text="Sent to pharmacy"
+        />
         <Line />
-        <ProgressSection completed={false} text="Approved" />
+        <ProgressSection
+          completed={orderStatus('Accepted', order.status)}
+          text="Approved"
+        />
         <Line />
-        <ProgressSection completed={false} text="Ready for collection" />
+        <ProgressSection
+          completed={orderStatus('ReadyForCollection', order.status)}
+          text="Ready for collection"
+        />
         <Line />
-        <ProgressSection completed={false} text="Collected" />
+        <ProgressSection
+          completed={orderStatus('Collected', order.status)}
+          text="Collected"
+        />
       </View>
       <Button
         type="solid"
@@ -83,4 +101,10 @@ function Line() {
 function ProgressDot({ completed }: { completed: boolean }) {
   const color = completed ? SUCCESS_GREEN : 'grey';
   return <Icon name="circle" size={DOT_SIZE} color={color} />;
+}
+
+function orderStatus(status: string, value: string) {
+  const statuses = ['New', 'Accepted', 'ReadyForCollection', 'Collected'];
+  if (statuses.indexOf(value) >= statuses.indexOf(status)) return true;
+  return false;
 }
