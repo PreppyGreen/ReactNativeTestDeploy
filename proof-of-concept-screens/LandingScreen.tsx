@@ -4,9 +4,8 @@ import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
-import { MAPBOX_KEY, API} from '../config';
+import { ORDERS_API } from '../config';
 import axios from 'axios';
-Reactotron.log({ MAPBOX_KEY, API })
 
 /*
  - Make a network request to retrieve the list of medicines
@@ -22,7 +21,7 @@ export default function LandingScreen({
 	useEffect(() => {
 		async function fetchOrders() {
 			//Fetch orders
-			const orders = await axios.get(`${API}/orders`)
+			const orders = (await axios.get(ORDERS_API))?.data;
 			Reactotron.log('The orders are', { orders });
 		}
 		fetchOrders();

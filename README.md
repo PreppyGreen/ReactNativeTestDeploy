@@ -1,5 +1,15 @@
 # ReactNativeTestDeploy
 
+## Mapbox setup
+Create a `.env` file in the root of the project with the following contents
+```
+MAPBOX_KEY=<your_key_here>
+```
+
+## Tools
+- [Appium](http://appium.io/)
+- [Reactotron](https://github.com/infinitered/reactotron)
+
 
 ## Create a new project
 
@@ -65,7 +75,7 @@ pod install
 
 ## AD B2C
 
-### Create a tenant 
+### Create a tenant
 https://github.com/PreppyGreen/jwtauthspike
 
 
