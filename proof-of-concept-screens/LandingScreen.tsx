@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
-
+import Reactotron from 'reactotron-react-native';
 
 /*
  - Make a network request to retrieve the list of medicines
@@ -15,6 +15,7 @@ export default function LandingScreen({
 }: {
   navigation: NavigationStackProp;
 }) {
+	Reactotron?.log('On the landing screen');
   const styleContext = useContext(StyleContext);
   return (
     <SafeAreaView style={styleContext.container}>

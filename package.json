@@ -65,6 +65,7 @@
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.56.4",
     "react-test-renderer": "16.9.0",
+    "reactotron-react-native": "^4.0.3",
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.3"
   },
