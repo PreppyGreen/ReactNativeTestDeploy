@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
-import { ORDERS_API } from '../config';
+import { GET_ORDERS } from '../config';
 import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { percentageHeight } from '../theme/utils';
@@ -25,7 +25,7 @@ export default function LandingScreen({
   useEffect(() => {
     async function fetchOrders() {
       try {
-        const orders = (await axios.get(ORDERS_API)).data;
+        const orders = (await axios.get(GET_ORDERS)).data;
         setOrders(orders);
       } catch (e) {
         Reactotron.warn('Could not fetch orders.');
