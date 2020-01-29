@@ -18,11 +18,11 @@ import {
   OrderViewScreen,
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
-import uuid from 'uuid/v4';
 import Reactotron from 'reactotron-react-native';
 import axios from 'axios';
-import { POST_USER } from './config';
+import { POST_USER, PHARMACY_ID } from './config';
 
+console.disableYellowBox = true; //Comment this out if you want to see the yellow warnings
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
@@ -47,7 +47,10 @@ export default function App() {
     async function setUserDetails() {
       try {
 				//create an account;
-				const user = (await axios.post(POST_USER, { email: '' })).data;
+				const user = (await axios.post(POST_USER, {
+					email: '',
+					pharmacyId: PHARMACY_ID
+				})).data;
         await AsyncStorage.multiSet([
           ['accountId', user.account.id],
           ['patientId', user.patient.id],
