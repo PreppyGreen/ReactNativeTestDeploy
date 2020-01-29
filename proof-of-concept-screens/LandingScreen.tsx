@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -23,9 +23,15 @@ export default function LandingScreen({
   const styleContext = useContext(StyleContext);
   const [orders, setOrders]: [ OrderType[], Function ] = useState([]);
   useEffect(() => {
+		Reactotron.log('On the landing screen');
     async function fetchOrders() {
       try {
-        const orders = (await axios.get(GET_ORDERS)).data;
+				const accountId = await AsyncStorage.getItem('accountId');
+				const patientId = await AsyncStorage.getItem('patientId');
+        const orders = (await axios.post(GET_ORDERS, {
+					accountId,
+					patientId
+				})).data;
         setOrders(orders);
       } catch (e) {
         Reactotron.warn('Could not fetch orders.');
@@ -51,7 +57,7 @@ export default function LandingScreen({
             renderItem={({ item }) => (
               <Order order={item} navigation={navigation} />
             )}
-            keyExtractor={item => item.orderId}
+            keyExtractor={item => item.id}
           />
         </View>
         <View

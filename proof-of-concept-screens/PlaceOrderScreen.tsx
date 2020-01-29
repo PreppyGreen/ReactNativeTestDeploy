@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage } from 'react-native';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -20,10 +20,12 @@ export default function PlaceOrderScreen({
   const placeOrder = async () => {
     setLoading(true);
     try {
+			const accountId = await AsyncStorage.getItem('accountId');
+			const patientId = await AsyncStorage.getItem('patientId');
       const newOrder: OrderType = (
         await axios.post(POST_ORDER, {
-          accountId: uuid(),
-          patiendId: uuid(),
+          accountId,
+          patientId,
         })
       ).data;
       navigation.navigate({
@@ -54,7 +56,7 @@ export default function PlaceOrderScreen({
 }
 
 function LoadingSpinner() {
-  return <ActivityIndicator />;
+  return <ActivityIndicator color="white" />;
 }
 const styles = StyleSheet.create({
   buttonContainer: {

@@ -1,7 +1,7 @@
 import { StatusType } from './status';
 
 export type OrderType = {
-	orderId: string;
+	id: string;
 	accountId: string;
 	patientId: string;
 	orderDt: string;
@@ -21,7 +21,7 @@ export type OrderItemType = {
 /*
 
 {
-"orderId": "729b79a7-21b9-4ead-a369-7d38221f037b",
+"id": "729b79a7-21b9-4ead-a369-7d38221f037b",
 "accountId": "54dc7cc0-0640-4652-adea-f526df7ccc7a",
 "patientId": "18757d23-4b28-4b1a-a7ea-e2d081736cd1",
 "orderDt": "2020-01-29T09:37:31.1170672Z",
