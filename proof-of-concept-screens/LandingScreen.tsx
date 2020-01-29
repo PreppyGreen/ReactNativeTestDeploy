@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
+import { MAPBOX_KEY, API} from '../config';
+import axios from 'axios';
+Reactotron.log({ MAPBOX_KEY, API })
 
 /*
  - Make a network request to retrieve the list of medicines
@@ -15,8 +18,15 @@ export default function LandingScreen({
 }: {
   navigation: NavigationStackProp;
 }) {
-	Reactotron?.log('On the landing screen');
-  const styleContext = useContext(StyleContext);
+	const styleContext = useContext(StyleContext);
+	useEffect(() => {
+		async function fetchOrders() {
+			//Fetch orders
+			const orders = await axios.get(`${API}/orders`)
+			Reactotron.log('The orders are', { orders });
+		}
+		fetchOrders();
+	}, [])
   return (
     <SafeAreaView style={styleContext.container}>
       <View
