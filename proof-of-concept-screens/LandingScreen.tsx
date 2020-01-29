@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, AsyncStorage } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  AsyncStorage,
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -21,17 +27,19 @@ export default function LandingScreen({
   navigation: NavigationStackProp;
 }) {
   const styleContext = useContext(StyleContext);
-  const [orders, setOrders]: [ OrderType[], Function ] = useState([]);
+  const [orders, setOrders]: [OrderType[], Function] = useState([]);
   useEffect(() => {
-		Reactotron.log('On the landing screen');
+    Reactotron.log('On the landing screen');
     async function fetchOrders() {
       try {
-				const accountId = await AsyncStorage.getItem('accountId');
-				const patientId = await AsyncStorage.getItem('patientId');
-        const orders = (await axios.post(GET_ORDERS, {
-					accountId,
-					patientId
-				})).data;
+        const accountId = await AsyncStorage.getItem('accountId');
+        const patientId = await AsyncStorage.getItem('patientId');
+        const orders = (
+          await axios.post(GET_ORDERS, {
+            accountId,
+            patientId,
+          })
+        ).data;
         setOrders(orders);
       } catch (e) {
         Reactotron.warn('Could not fetch orders.');
@@ -39,10 +47,10 @@ export default function LandingScreen({
       }
     }
     fetchOrders();
-	}, []);
-	//TODO: Make this code a bit more dry;
-	const activeOrders = orders.filter(o => o.status != 'Collected');
-	const fulfilledOrders = orders.filter(o => o.status == 'Collected');
+  }, []);
+  //TODO: Make this code a bit more dry;
+  const activeOrders = orders.filter(o => o.orderStatus != 'Collected');
+  const fulfilledOrders = orders.filter(o => o.orderStatus == 'Collected');
   return (
     <SafeAreaView style={styleContext.container}>
       <View
@@ -68,13 +76,14 @@ export default function LandingScreen({
             flex: 1,
           }}>
           <Text style={styleContext.title}>Fulfilled orders</Text>
-					<FlatList
+          <FlatList
             data={fulfilledOrders}
             renderItem={({ item }) => (
               <Order order={item} navigation={navigation} />
             )}
             keyExtractor={item => item.id}
-          />        </View>
+          />
+        </View>
 
         <Button
           title="Place order"
@@ -95,16 +104,16 @@ function Order({
 }) {
   const timeStamp = new Date(order.orderDt).toUTCString();
   return (
-    <TouchableOpacity onPress={() => {
-			navigation.navigate({
-				routeName: 'OrderView',
-				params: {
-					order
-				}
-			})
-		}}>
-      <View
-        style={styles.orderItem}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate({
+          routeName: 'OrderView',
+          params: {
+            order,
+          },
+        });
+      }}>
+      <View style={styles.orderItem}>
         <Text>Ordered: {timeStamp}</Text>
       </View>
     </TouchableOpacity>
@@ -112,13 +121,13 @@ function Order({
 }
 
 const styles = StyleSheet.create({
-	orderItem: {
-		padding: percentageHeight(2.5),
-		justifyContent: 'center',
-		alignContent: 'center',
-		backgroundColor: 'lightblue',
-		borderWidth: 2,
-		borderRadius: 2,
-		borderColor: 'black',
-	}
+  orderItem: {
+    padding: percentageHeight(2.5),
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: 'lightblue',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: 'black',
+  },
 });

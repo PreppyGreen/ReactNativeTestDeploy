@@ -36,22 +36,22 @@ export default function OrderViewScreen({
           padding: '10%',
         }}>
         <ProgressSection
-          completed={orderStatus('New', order.status)}
+          completed={orderStatus('New', order.orderStatus)}
           text="Sent to pharmacy"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('Accepted', order.status)}
+          completed={orderStatus('Accepted', order.orderStatus)}
           text="Approved"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('ReadyForCollection', order.status)}
+          completed={orderStatus('ReadyForCollection', order.orderStatus)}
           text="Ready for collection"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('Collected', order.status)}
+          completed={orderStatus('Collected', order.orderStatus)}
           text="Collected"
         />
       </View>

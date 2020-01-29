@@ -5,14 +5,14 @@ export type OrderType = {
 	accountId: string;
 	patientId: string;
 	orderDt: string;
-	status: string;
+	orderStatus: string;
 	statusUpdates: StatusType[];
 	items: OrderItemType[];
 }
 
 export type OrderItemType = {
 	orderItemId: string;
-	status: string;
+	orderStatus: string;
 	quantity: number;
 	medicineId: string;
 }
