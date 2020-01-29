@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ReactNativeTestDeployTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactNativeTestDeployTests.m */; };
 		038198761AD9403BB2694CED /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9017D369E13D4CC9AEBEA777 /* MaterialIcons.ttf */; };
