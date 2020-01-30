@@ -47,18 +47,27 @@ export default function LandingScreen({
       }
     }
     fetchOrders();
-  }, []);
-  //TODO: Make this code a bit more dry;
-  const activeOrders = orders.filter(o => o.orderStatus != 'Collected');
-  const fulfilledOrders = orders.filter(o => o.orderStatus == 'Collected');
+	}, []);
+
+	//Sort the orders out;
+  const activeOrders = [],
+    fulfilledOrders = [];
+  for (const order of orders) {
+    if (order.orderStatus == 'Collected') {
+      fulfilledOrders.push(order);
+    } else {
+      activeOrders.push(order);
+    }
+  }
   return (
     <SafeAreaView style={styleContext.container}>
-			<Button title="Refresh"
-				type="solid"
-				onPress={() => {
-					navigation.push('Landing')
-				}}
-			/>
+      <Button
+        title="Refresh"
+        type="solid"
+        onPress={() => {
+          navigation.push('Landing');
+        }}
+      />
       <View
         style={{
           flex: 1,
@@ -119,8 +128,8 @@ function Order({
         });
       }}>
       <View style={styles.orderItem}>
-        <Text>ID: { order.id }</Text>
-				<Text>Status: { order.orderStatus }</Text>
+        <Text>ID: {order.id}</Text>
+        <Text>Status: {order.orderStatus}</Text>
       </View>
     </TouchableOpacity>
   );
