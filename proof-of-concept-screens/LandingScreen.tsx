@@ -129,7 +129,9 @@ function Order({
       }}>
       <View style={styles.orderItem}>
         <Text>ID: {order.id}</Text>
-        <Text>Status: {order.orderStatus}</Text>
+        <Text style={{
+					fontWeight: 'bold'
+				}}>Status: {order.orderStatus}</Text>
       </View>
     </TouchableOpacity>
   );
