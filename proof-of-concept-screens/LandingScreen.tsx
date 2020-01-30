@@ -53,6 +53,12 @@ export default function LandingScreen({
   const fulfilledOrders = orders.filter(o => o.orderStatus == 'Collected');
   return (
     <SafeAreaView style={styleContext.container}>
+			<Button title="Refresh"
+				type="solid"
+				onPress={() => {
+					navigation.push('Landing')
+				}}
+			/>
       <View
         style={{
           flex: 1,
@@ -114,6 +120,7 @@ function Order({
       }}>
       <View style={styles.orderItem}>
         <Text>ID: { order.id }</Text>
+				<Text>Status: { order.orderStatus }</Text>
       </View>
     </TouchableOpacity>
   );
