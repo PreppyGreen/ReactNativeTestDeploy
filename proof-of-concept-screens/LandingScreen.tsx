@@ -102,7 +102,6 @@ function Order({
   order: OrderType;
   navigation: NavigationStackProp;
 }) {
-  const timeStamp = new Date(order.orderDt).toUTCString();
   return (
     <TouchableOpacity
       onPress={() => {
@@ -114,7 +113,7 @@ function Order({
         });
       }}>
       <View style={styles.orderItem}>
-        <Text>Ordered: {timeStamp}</Text>
+        <Text>ID: { order.id }</Text>
       </View>
     </TouchableOpacity>
   );
