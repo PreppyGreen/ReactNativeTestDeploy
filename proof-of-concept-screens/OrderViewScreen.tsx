@@ -9,6 +9,8 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from '../types/order';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
+import { GET_ORDER } from '../config';
 
 const DOT_SIZE = 40;
 const LINE_WIDTH = 3;
@@ -19,8 +21,17 @@ export default function OrderViewScreen({
     order: OrderType;
   }>;
 }) {
-  Reactotron.log('nav props are', navigation.getParam('order'));
+	Reactotron.log('nav props are', navigation.getParam('order'));
   const order: OrderType = navigation.getParam('order');
+
+	const refreshPage = async () => {
+		try {
+			const newestOrder = (await axios.get(`${GET_ORDER}/${order.id}`)).data;
+			navigation.push('OrderView', { order: newestOrder })
+		} catch (e) {
+			Reactotron.warn(e);
+		}
+	}
   return (
     <SafeAreaView
       style={{
@@ -28,6 +39,10 @@ export default function OrderViewScreen({
         justifyContent: 'space-between',
         alignItems: 'center',
       }}>
+			<Button title="Refresh"
+				type="solid"
+				onPress={refreshPage}
+			/>
       <View
         style={{
           flex: 1,
