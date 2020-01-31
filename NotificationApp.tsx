@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -55,34 +55,29 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-		PushNotification.configure(configure);
-	}
-	componentDidMount() {
-		BackgroundTimer.runBackgroundTimer(() => {
-			Reactotron.log('background beeep bop')
-		}, 3000);
-	}
-  render() {
-    return (
-      <SafeAreaView>
-        <Button
-          title={'call push notification'}
-          onPress={() => {
-            PushNotification.localNotificationSchedule({
-              message: 'messasdfasdf',
-              date: new Date(Date.now() + 4 * 1000),
-            });
-          }}
-        />
-        <Text>Welcome to React Native 0.58!</Text>
-        <Text>To get started, edit App.js</Text>
-        <Text>{instructions}</Text>
-      </SafeAreaView>
-    );
-  }
+export default function App() {
+  useEffect(() => {
+    PushNotification.configure(configure);
+    BackgroundTimer.runBackgroundTimer(() => {
+      Reactotron.log('background beeep bop');
+    }, 3000);
+  }, []);
+  return (
+    <SafeAreaView>
+      <Button
+        title={'call push notification'}
+        onPress={() => {
+          PushNotification.localNotificationSchedule({
+            message: 'messasdfasdf',
+            date: new Date(Date.now() + 4 * 1000),
+          });
+        }}
+      />
+      <Text>Welcome to React Native 0.58!</Text>
+      <Text>To get started, edit App.js</Text>
+      <Text>{instructions}</Text>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({});
