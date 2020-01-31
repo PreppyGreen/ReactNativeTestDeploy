@@ -17,6 +17,7 @@ import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
 import PushNotification from '../config/notifications';
 import BackgroundTimer from 'react-native-background-timer';
+import { COLLECTED, READY_FOR_COLLECTION } from '../constants';
 
 export default function LandingScreen({
   navigation,
@@ -39,18 +40,16 @@ export default function LandingScreen({
   // Setup a background task that will notify the users if any orders are ready to collect;
   useEffect(() => {
     BackgroundTimer.runBackgroundTimer(async () => {
-			Reactotron.log('Running background check', new Date(Date.now()).toUTCString());
+			Reactotron.log('Running background check');
 			const orders = await getOrdersInStorage();
 			fetchOrders().then(async (latestOrders) => {
-				Reactotron.log({ orders, latestOrders })
         for (const order of latestOrders) {
           const prevOrder = orders.find(o => o.id === order.id);
           if (
-            order.orderStatus == 'ReadyForCollection' &&
+            order.orderStatus == READY_FOR_COLLECTION &&
             prevOrder.orderStatus != order.orderStatus
           ) {
-						setOrdersInStorage(latestOrders)
-						Reactotron.log('Order ready to collect')
+						setOrdersInStorage(latestOrders);//Store the orders in async storage because we can't actually setState from a background timer and compare it.
             return PushNotification.localNotification({
               message: 'You have an order ready to collect',
             });
@@ -65,7 +64,7 @@ export default function LandingScreen({
   const activeOrders = [],
     fulfilledOrders = [];
   for (const order of orders) {
-    if (order.orderStatus == 'Collected') {
+    if (order.orderStatus == COLLECTED) {
       fulfilledOrders.push(order);
     } else {
       activeOrders.push(order);

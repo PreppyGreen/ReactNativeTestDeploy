@@ -11,6 +11,7 @@ import { OrderType } from '../types/order';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import { GET_ORDER } from '../config';
+import { NEW, ACCEPTED, READY_FOR_COLLECTION, COLLECTED } from '../constants';
 
 const DOT_SIZE = 40;
 const LINE_WIDTH = 3;
@@ -51,22 +52,22 @@ export default function OrderViewScreen({
           padding: '10%',
         }}>
         <ProgressSection
-          completed={orderStatus('New', order.orderStatus)}
+          completed={orderStatus(NEW, order.orderStatus)}
           text="Sent to pharmacy"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('Accepted', order.orderStatus)}
+          completed={orderStatus(ACCEPTED, order.orderStatus)}
           text="Approved"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('ReadyForCollection', order.orderStatus)}
+          completed={orderStatus(READY_FOR_COLLECTION, order.orderStatus)}
           text="Ready for collection"
         />
         <Line />
         <ProgressSection
-          completed={orderStatus('Collected', order.orderStatus)}
+          completed={orderStatus(COLLECTED, order.orderStatus)}
           text="Collected"
         />
       </View>
@@ -119,7 +120,7 @@ function ProgressDot({ completed }: { completed: boolean }) {
 }
 
 function orderStatus(status: string, value: string) {
-  const statuses = ['New', 'Accepted', 'ReadyForCollection', 'Collected'];
+  const statuses = [NEW, ACCEPTED, READY_FOR_COLLECTION, COLLECTED];
   if (statuses.indexOf(value) >= statuses.indexOf(status)) return true;
   return false;
 }
