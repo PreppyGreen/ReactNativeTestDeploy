@@ -39,7 +39,10 @@ export default function LandingScreen({
 
   // Setup a background task that will notify the users if any orders are ready to collect;
   useEffect(() => {
-		backgroundRunner();
+		//Only run this in dev mode
+		if (__DEV__) {
+			backgroundRunner();
+		}
   }, []);
 
   //Sort the orders into active and fulfilled(collected);
