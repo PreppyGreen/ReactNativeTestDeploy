@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import Reactotron from 'reactotron-react-native';
+import BackgroundTimer from 'react-native-background-timer';
 
 const configure = {
   // (required) Called when a remote or local notification is opened or received
@@ -57,8 +58,13 @@ const instructions = Platform.select({
 export default class App extends Component {
   constructor(props) {
     super(props);
-    PushNotification.configure(configure);
-  }
+		PushNotification.configure(configure);
+	}
+	componentDidMount() {
+		BackgroundTimer.runBackgroundTimer(() => {
+			Reactotron.log('background beeep bop')
+		}, 3000);
+	}
   render() {
     return (
       <SafeAreaView>
@@ -67,7 +73,7 @@ export default class App extends Component {
           onPress={() => {
             PushNotification.localNotificationSchedule({
               message: 'messasdfasdf',
-              date: new Date(Date.now() + 10 * 1000),
+              date: new Date(Date.now() + 4 * 1000),
             });
           }}
         />
