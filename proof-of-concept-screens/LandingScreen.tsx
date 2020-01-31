@@ -15,12 +15,9 @@ import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
+import PushNotification from '../config/notifications';
+import BackgroundTimer from 'react-native-background-timer';
 
-/*
- - Make a network request to retrieve the list of medicines
- - Display the list of orders and stuff in a list
- - Have a button that navigates to the screen where you can place a order
-*/
 export default function LandingScreen({
   navigation,
 }: {
@@ -28,28 +25,43 @@ export default function LandingScreen({
 }) {
   const styleContext = useContext(StyleContext);
   const [orders, setOrders]: [OrderType[], Function] = useState([]);
+
+  // Get the list of orders for this account
   useEffect(() => {
     Reactotron.log('On the landing screen');
-    async function fetchOrders() {
-      try {
-        const accountId = await AsyncStorage.getItem('accountId');
-        const patientId = await AsyncStorage.getItem('patientId');
-        const orders = (
-          await axios.post(GET_ORDERS, {
-            accountId,
-            patientId,
-          })
-        ).data;
-        setOrders(orders);
-      } catch (e) {
-        Reactotron.warn('Could not fetch orders.');
-        Reactotron.warn(e);
-      }
-    }
-    fetchOrders();
-	}, []);
+		fetchOrders()
+			.then(async (o) => {
+				await AsyncStorage.setItem('orders', JSON.stringify(o));
+				setOrders(o)
+			})
+  }, []);
 
-	//Sort the orders out;
+  // Setup a background task that will notify the users if any orders are ready to collect;
+  useEffect(() => {
+    BackgroundTimer.runBackgroundTimer(async () => {
+			Reactotron.log('Running background check', new Date(Date.now()).toUTCString());
+			const orders = await getOrdersInStorage();
+			fetchOrders().then(async (latestOrders) => {
+				Reactotron.log({ orders, latestOrders })
+        for (const order of latestOrders) {
+          const prevOrder = orders.find(o => o.id === order.id);
+          if (
+            order.orderStatus == 'ReadyForCollection' &&
+            prevOrder.orderStatus != order.orderStatus
+          ) {
+						setOrdersInStorage(latestOrders)
+						Reactotron.log('Order ready to collect')
+            return PushNotification.localNotification({
+              message: 'You have an order ready to collect',
+            });
+          }
+				}
+				setOrdersInStorage(latestOrders);
+      });
+    }, 10000);
+  }, []);
+
+  //Sort the orders into active and fulfilled(collected);
   const activeOrders = [],
     fulfilledOrders = [];
   for (const order of orders) {
@@ -129,9 +141,12 @@ function Order({
       }}>
       <View style={styles.orderItem}>
         <Text>ID: {order.id}</Text>
-        <Text style={{
-					fontWeight: 'bold'
-				}}>Status: {order.orderStatus}</Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+          }}>
+          Status: {order.orderStatus}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -148,3 +163,29 @@ const styles = StyleSheet.create({
     borderColor: 'black',
   },
 });
+
+async function fetchOrders(): Promise<OrderType[]> {
+  try {
+    const accountId = await AsyncStorage.getItem('accountId');
+    const patientId = await AsyncStorage.getItem('patientId');
+    const orders = (
+      await axios.post(GET_ORDERS, {
+        accountId,
+        patientId,
+      })
+    ).data;
+    return orders;
+  } catch (e) {
+    Reactotron.warn('Could not fetch orders.');
+    Reactotron.warn(e);
+    return [];
+  }
+}
+
+
+async function setOrdersInStorage(orders) {
+	await AsyncStorage.setItem('orders', JSON.stringify(orders));
+}
+async function getOrdersInStorage() {
+	return JSON.parse(await AsyncStorage.getItem('orders'));
+}
