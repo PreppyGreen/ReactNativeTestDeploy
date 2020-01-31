@@ -53,3 +53,15 @@ jest.mock('@react-native-mapbox-gl/maps', () => {
 		setAccessToken: () => {},
 	}
 })
+
+jest.mock('react-native-push-notification', () => {
+	return {
+		configure: () => {}
+	};
+})
+
+jest.mock('react-native-background-timer', () => {
+	return {
+
+	}
+})
