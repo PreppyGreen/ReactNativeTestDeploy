@@ -6,6 +6,7 @@
  */
 
 #import "AppDelegate.h"
+#import <RNCPushNotificationIOS.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -28,7 +29,14 @@
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
   // Pass the device token to MSPush.
-  [MSPush didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  [MSPush didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+
+}
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RNCPushNotificationIOS didRegisterUserNotificationSettings:notificationSettings];
 }
 
 - (void)application:(UIApplication *)application
@@ -36,11 +44,19 @@
 
   // Pass the error to MSPush.
   [MSPush didFailToRegisterForRemoteNotificationsWithError:error];
-}
+	  [RNCPushNotificationIOS didFailToRegisterForRemoteNotificationsWithError:error];
 
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RNCPushNotificationIOS didReceiveLocalNotification:notification];
+}
 - (void)application:(UIApplication *)application
     didReceiveRemoteNotification:(NSDictionary *)userInfo
          fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+	[RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+
   NSDictionary *dictionary = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:[dictionary valueForKey:@"title"]
                                                                 message:[dictionary valueForKey:@"body"]
@@ -66,12 +82,12 @@
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   [AppCenterReactNativePush register];
 
-  
+
   if (@available(iOS 10.0, *)) {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
   }
-  
+
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
