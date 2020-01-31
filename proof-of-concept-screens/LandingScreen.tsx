@@ -58,7 +58,7 @@ export default function LandingScreen({
 				}
 				setOrdersInStorage(latestOrders);
       });
-    }, 10000);
+    }, 5000);
   }, []);
 
   //Sort the orders into active and fulfilled(collected);
