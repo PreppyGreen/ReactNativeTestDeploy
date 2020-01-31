@@ -39,25 +39,7 @@ export default function LandingScreen({
 
   // Setup a background task that will notify the users if any orders are ready to collect;
   useEffect(() => {
-    BackgroundTimer.runBackgroundTimer(async () => {
-			Reactotron.log('Running background check');
-			const orders = await getOrdersInStorage();
-			fetchOrders().then(async (latestOrders) => {
-        for (const order of latestOrders) {
-          const prevOrder = orders.find(o => o.id === order.id);
-          if (
-            order.orderStatus == READY_FOR_COLLECTION &&
-            prevOrder.orderStatus != order.orderStatus
-          ) {
-						setOrdersInStorage(latestOrders);//Store the orders in async storage because we can't actually setState from a background timer and compare it.
-            return PushNotification.localNotification({
-              message: 'You have an order ready to collect',
-            });
-          }
-				}
-				setOrdersInStorage(latestOrders);
-      });
-    }, 5000);
+		backgroundRunner();
   }, []);
 
   //Sort the orders into active and fulfilled(collected);
@@ -187,4 +169,26 @@ async function setOrdersInStorage(orders) {
 }
 async function getOrdersInStorage() {
 	return JSON.parse(await AsyncStorage.getItem('orders'));
+}
+
+function backgroundRunner() {
+	return BackgroundTimer.runBackgroundTimer(async () => {
+		Reactotron.log('Running background check');
+		const orders = await getOrdersInStorage();
+		fetchOrders().then(async (latestOrders) => {
+			for (const order of latestOrders) {
+				const prevOrder = orders.find(o => o.id === order.id);
+				if (
+					order.orderStatus == READY_FOR_COLLECTION &&
+					prevOrder.orderStatus != order.orderStatus
+				) {
+					setOrdersInStorage(latestOrders);//Store the orders in async storage because we can't actually setState from a background timer and compare it.
+					return PushNotification.localNotification({
+						message: 'You have an order ready to collect',
+					});
+				}
+			}
+			setOrdersInStorage(latestOrders);
+		});
+	}, 10000)
 }
