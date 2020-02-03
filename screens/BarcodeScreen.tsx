@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Text, View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import BarcodeMask from 'react-native-barcode-mask';
 
 export default function BarcodeScan() {
   const [isTorchOn, setIsTorchOn] = useState(false);
@@ -17,18 +18,9 @@ export default function BarcodeScan() {
         }
         onBarCodeRead={onBarCodeRead}
         ref={camera}>
-        <Text
-          style={{
-            backgroundColor: 'white',
-          }}>
-          BARCODE SCANNER
-        </Text>
+					<BarcodeMask />
       </RNCamera>
-      {/* <View style={styles.bottomOverlay}>
-        <TouchableOpacity onPress={() => setIsTorchOn(prev => !prev)}>
-          <Text>{isTorchOn ? 'Torch is on' : 'Torch is off'}</Text>
-        </TouchableOpacity>{' '}
-      </View> */}
+
     </View>
   );
 }
