@@ -9,9 +9,8 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from '../types/order';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import axios from 'axios';
-import { GET_ORDER } from '../config';
 import { NEW, ACCEPTED, READY_FOR_COLLECTION, COLLECTED } from '../constants';
+import { fetchOrder } from '../utils';
 
 const DOT_SIZE = 40;
 const LINE_WIDTH = 3;
@@ -27,7 +26,7 @@ export default function OrderViewScreen({
 
 	const refreshPage = async () => {
 		try {
-			const newestOrder = (await axios.get(`${GET_ORDER}/${order.id}`)).data;
+			const newestOrder = await fetchOrder(order.id);
 			navigation.navigate('OrderView', { order: newestOrder })
 		} catch (e) {
 			Reactotron.warn(e);

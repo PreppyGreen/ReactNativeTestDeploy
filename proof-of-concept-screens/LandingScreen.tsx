@@ -16,8 +16,8 @@ import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
 import PushNotification from '../config/notifications';
 import BackgroundTimer from 'react-native-background-timer';
-import { COLLECTED, READY_FOR_COLLECTION } from '../constants';
-import { fetchOrders } from '../utils';
+import { READY_FOR_COLLECTION } from '../constants';
+import { fetchOrders, separateOrders } from '../utils';
 
 export default function LandingScreen({
   navigation,
@@ -46,15 +46,8 @@ export default function LandingScreen({
   }, []);
 
   //Sort the orders into active and fulfilled(collected);
-  const activeOrders = [],
-    fulfilledOrders = [];
-  for (const order of orders) {
-    if (order.orderStatus == COLLECTED) {
-      fulfilledOrders.push(order);
-    } else {
-      activeOrders.push(order);
-    }
-  }
+	const { activeOrders, fulfilledOrders } = separateOrders(orders);
+
   return (
     <SafeAreaView style={styleContext.container}>
       <Button

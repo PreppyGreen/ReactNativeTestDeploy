@@ -5,10 +5,9 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 import axios from 'axios';
 import { POST_ORDER } from '../config';
-import uuid from 'uuid/v4';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from 'types/order';
-import { ACCOUNT_ID, PATIENT_ID } from '../constants';
+import { getAccountDetails } from '../utils';
 
 export default function PlaceOrderScreen({
   navigation,
@@ -20,8 +19,7 @@ export default function PlaceOrderScreen({
   const placeOrder = async () => {
     setLoading(true);
     try {
-			const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
-			const patientId = await AsyncStorage.getItem(PATIENT_ID);
+			const { accountId, patientId } = await getAccountDetails();
 			Reactotron.log({ accountId, patientId });
       const newOrder: OrderType = (
         await axios.post(POST_ORDER, {
