@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { View, AsyncStorage } from 'react-native';
-import { Text, Button } from 'react-native-elements';
+import { View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
+import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { percentageHeight } from '../theme/utils';

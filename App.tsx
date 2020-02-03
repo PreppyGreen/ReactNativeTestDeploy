@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {

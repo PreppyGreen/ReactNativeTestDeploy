@@ -4,9 +4,9 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-	AsyncStorage,
 	TouchableOpacity
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';

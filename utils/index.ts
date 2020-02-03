@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage'
 import { ACCOUNT_ID, PATIENT_ID, COLLECTED } from "../constants";
 import { POST_USER, PHARMACY_ID, GET_ORDERS, GET_ORDER } from '../config';
 import axios from 'axios';

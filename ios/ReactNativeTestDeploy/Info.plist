@@ -92,6 +92,6 @@
 		<string>Zocial.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-<string>For scanning barcodes of medicines</string>
+	<string>For scanning barcodes of medicines</string>
 </dict>
 </plist>

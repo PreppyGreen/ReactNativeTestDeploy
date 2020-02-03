@@ -65,3 +65,15 @@ jest.mock('react-native-background-timer', () => {
 
 	}
 })
+
+jest.mock('@react-native-community/push-notification-ios', () => {
+	return {
+
+	}
+})
+
+jest.mock('@react-native-community/async-storage', () => {
+	return {
+
+	}
+})
