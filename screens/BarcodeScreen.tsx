@@ -1,21 +1,15 @@
-import React, { useState, useRef } from 'react';
-import { Text, View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import React, { useRef } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 
 export default function BarcodeScan() {
-  const [isTorchOn, setIsTorchOn] = useState(false);
   const camera = useRef(null);
 
   return (
     <View style={styles.container}>
       <RNCamera
         style={styles.preview}
-        flashMode={
-          isTorchOn
-            ? RNCamera.Constants.FlashMode.on
-            : RNCamera.Constants.FlashMode.off
-        }
         onBarCodeRead={onBarCodeRead}
         ref={camera}>
 					<BarcodeMask />
@@ -24,9 +18,11 @@ export default function BarcodeScan() {
     </View>
   );
 }
+
 function onBarCodeRead(e: any) {
   Alert.alert('Barcode value is' + e.data, 'Barcode type is' + e.type);
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
