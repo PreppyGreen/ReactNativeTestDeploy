@@ -47,6 +47,7 @@
     "react-native-autocomplete-input": "^4.1.0",
     "react-native-background-timer": "^2.1.1",
     "react-native-calendars": "^1.259.0",
+    "react-native-camera": "^3.16.0",
     "react-native-config": "^0.12.0",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.5.3",

@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage, TouchableOpacity } from 'react-native';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 import axios from 'axios';
 import { POST_ORDER } from '../config';
@@ -23,6 +22,7 @@ export default function PlaceOrderScreen({
     try {
 			const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
 			const patientId = await AsyncStorage.getItem(PATIENT_ID);
+			Reactotron.log({ accountId, patientId });
       const newOrder: OrderType = (
         await axios.post(POST_ORDER, {
           accountId,

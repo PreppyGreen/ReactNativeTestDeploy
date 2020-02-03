@@ -4,13 +4,14 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  AsyncStorage,
+	AsyncStorage,
+	TouchableOpacity
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
 import PushNotification from '../config/notifications';

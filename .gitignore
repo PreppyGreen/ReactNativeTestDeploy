@@ -68,3 +68,6 @@ buck-out/
 # Environment variables
 *.env
 *.env.js
+
+# Appcenter
+appcenter-config.json

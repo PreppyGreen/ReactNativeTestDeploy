@@ -1,4 +1,5 @@
 import PushNotification from 'react-native-push-notification';
+import Reactotron from 'reactotron-react-native';
 
 const configuration = {
   // (required) Called when a remote or local notification is opened or received

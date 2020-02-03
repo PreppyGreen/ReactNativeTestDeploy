@@ -9,7 +9,8 @@ import {
   MapboxScreen,
   CalendarScreen,
   AgendaScreen,
-  SliderScreen,
+	SliderScreen,
+	BarcodeScreen
 } from './screens';
 import {
   LandingScreen,
@@ -19,7 +20,6 @@ import {
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 import Reactotron from 'reactotron-react-native';
-import axios from 'axios';
 import { hasAccountDetailsInStorage, createAccount } from './utils';
 
 console.disableYellowBox = true; //Comment this out if you want to see the yellow warnings
@@ -35,7 +35,8 @@ const AppNavigator = createStackNavigator(
     Landing: LandingScreen,
     PlaceOrder: PlaceOrderScreen,
     OrderPlaced: OrderPlacedScreen,
-    OrderView: OrderViewScreen,
+		OrderView: OrderViewScreen,
+		Barcode: BarcodeScreen,
   },
   {
     initialRouteName: 'Home',

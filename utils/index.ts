@@ -13,12 +13,14 @@ export async function hasAccountDetailsInStorage() {
 }
 
 export async function createAccount() {
+	Reactotron.log('Creating account')
 	const user = (
 		await axios.post(POST_USER, {
 			email: '',
 			pharmacyId: PHARMACY_ID,
 		})
 	).data;
+	Reactotron.log({ user });
 	await storeAccount(user);
 }
 
@@ -34,6 +36,7 @@ async function storeAccount(user: any) {
 }
 
 export async function removeAccount() {
+	Reactotron.log('Removing account')
 	try {
 		await AsyncStorage.multiRemove([ACCOUNT_ID, PATIENT_ID]);
 	} catch (e) {
