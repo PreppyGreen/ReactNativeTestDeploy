@@ -99,7 +99,7 @@ export default function LandingScreen({
         <Button
           title="Place order"
           type="solid"
-          onPress={() => navigation.replace('PlaceOrder')}
+          onPress={() => navigation.navigate('PlaceOrder')}
         />
       </View>
     </SafeAreaView>

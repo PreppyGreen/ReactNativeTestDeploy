@@ -88,7 +88,7 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
 				type="outline"
 				testID="go-to-barcode-screen"
 				accessibilityLabel="go-to-barcode-screen"
-				onPress={() => navigation.navigate('Barcode')}
+				onPress={() => navigation.navigate('BarcodeScanner')}
 			/>
     </View>
   );

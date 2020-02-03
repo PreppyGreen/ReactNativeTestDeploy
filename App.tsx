@@ -10,7 +10,8 @@ import {
   CalendarScreen,
   AgendaScreen,
 	SliderScreen,
-	BarcodeScreen
+	BarcodeScannerScreen,
+	BarcodeValueScreen,
 } from './screens';
 import {
   LandingScreen,
@@ -36,7 +37,8 @@ const AppNavigator = createStackNavigator(
     PlaceOrder: PlaceOrderScreen,
     OrderPlaced: OrderPlacedScreen,
 		OrderView: OrderViewScreen,
-		Barcode: BarcodeScreen,
+		BarcodeScanner: BarcodeScannerScreen,
+		BarcodeValue: BarcodeValueScreen,
   },
   {
     initialRouteName: 'Home',

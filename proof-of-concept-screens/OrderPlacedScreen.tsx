@@ -25,7 +25,7 @@ export default function OrderPlacedScreen({
           type="solid"
           onPress={() => {
             //Should navigate to the order progress screen
-            navigation.replace('OrderView');
+            navigation.navigate('OrderView');
           }}
         />
       </View>

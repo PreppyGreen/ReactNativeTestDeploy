@@ -1,14 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-export default function BarcodeScan() {
-  const camera = useRef(null);
-
+export default function BarcodeScan({
+	navigation
+}: {
+	navigation: NavigationStackProp
+}) {
+	const camera = useRef(null);
+	function onBarCodeRead(barcode: {
+		data: any;
+		type: any;
+	}) {
+		navigation.navigate('BarcodeValue', { barcode });
+	}
   return (
     <View style={styles.container}>
       <RNCamera
+
         style={styles.preview}
         onBarCodeRead={onBarCodeRead}
         ref={camera}>
@@ -20,7 +31,7 @@ export default function BarcodeScan() {
 }
 
 function onBarCodeRead(e: any) {
-  Alert.alert('Barcode value is' + e.data, 'Barcode type is' + e.type);
+  Alert.alert('Barcode value is ' + e.data, 'Barcode type is ' + e.type);
 }
 
 const styles = StyleSheet.create({

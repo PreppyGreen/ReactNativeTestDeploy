@@ -29,7 +29,7 @@ export default function PlaceOrderScreen({
           patientId,
         })
       ).data;
-      navigation.replace('OrderView', {
+      navigation.navigate('OrderView', {
           order: newOrder,
       });
       setLoading(false);

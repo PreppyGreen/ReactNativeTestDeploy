@@ -28,7 +28,7 @@ export default function OrderViewScreen({
 	const refreshPage = async () => {
 		try {
 			const newestOrder = (await axios.get(`${GET_ORDER}/${order.id}`)).data;
-			navigation.replace('OrderView', { order: newestOrder })
+			navigation.navigate('OrderView', { order: newestOrder })
 		} catch (e) {
 			Reactotron.warn(e);
 		}
@@ -74,7 +74,7 @@ export default function OrderViewScreen({
       <Button
         type="solid"
         title="Go back to the landing page"
-        onPress={() => navigation.push('Landing')}
+        onPress={() => navigation.replace('Landing')}
       />
     </SafeAreaView>
   );

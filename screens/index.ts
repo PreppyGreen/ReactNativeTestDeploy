@@ -5,4 +5,5 @@ export { default as MapboxScreen } from './MapboxScreen';
 export { default as CalendarScreen } from './CalendarScreen';
 export { default as AgendaScreen } from './AgendaScreen';
 export { default as SliderScreen } from './SliderScreen';
-export { default as BarcodeScreen } from './BarcodeScreen';
+export { default as BarcodeScannerScreen } from './BarcodeScannerScreen';
+export { default as BarcodeValueScreen } from './BarcodeValueScreen';
