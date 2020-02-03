@@ -10,14 +10,13 @@ import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Reactotron from 'reactotron-react-native';
-import { GET_ORDERS } from '../config';
-import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
 import PushNotification from '../config/notifications';
 import BackgroundTimer from 'react-native-background-timer';
-import { COLLECTED, READY_FOR_COLLECTION, ACCOUNT_ID, PATIENT_ID } from '../constants';
+import { COLLECTED, READY_FOR_COLLECTION } from '../constants';
+import { fetchOrders } from '../utils';
 
 export default function LandingScreen({
   navigation,
@@ -148,23 +147,7 @@ const styles = StyleSheet.create({
   },
 });
 
-async function fetchOrders(): Promise<OrderType[]> {
-  try {
-    const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
-    const patientId = await AsyncStorage.getItem(PATIENT_ID);
-    const orders = (
-      await axios.post(GET_ORDERS, {
-        accountId,
-        patientId,
-      })
-    ).data;
-    return orders;
-  } catch (e) {
-    Reactotron.warn('Could not fetch orders.');
-    Reactotron.warn(e);
-    return [];
-  }
-}
+
 
 
 async function setOrdersInStorage(orders) {
