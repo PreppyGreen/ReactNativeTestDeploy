@@ -8,7 +8,7 @@ export async function hasAccountDetailsInStorage() {
 	const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
 	const patientId = await AsyncStorage.getItem(PATIENT_ID);
 
-	return !accountId || !patientId;
+	return accountId && patientId;
 }
 
 export async function createAccount() {
