@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { percentageHeight } from '../theme/utils';
+import { ACCOUNT_ID, PATIENT_ID } from '../constants';
+import Reactotron from 'reactotron-react-native';
+
 export default HomeScreen;
 
 function HomeScreen({ navigation }: {
@@ -63,4 +66,12 @@ function HomeScreen({ navigation }: {
 }
 HomeScreen.navigationOptions = {
 	title: 'Home screen'
+}
+
+async function clearAccountDetails() {
+	try {
+		await AsyncStorage.multiRemove([ACCOUNT_ID, PATIENT_ID])
+	} catch (e) {
+		Reactotron.log('Error removing account details:', e);
+	}
 }

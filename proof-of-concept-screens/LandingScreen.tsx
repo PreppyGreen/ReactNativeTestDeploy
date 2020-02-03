@@ -17,7 +17,7 @@ import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
 import PushNotification from '../config/notifications';
 import BackgroundTimer from 'react-native-background-timer';
-import { COLLECTED, READY_FOR_COLLECTION } from '../constants';
+import { COLLECTED, READY_FOR_COLLECTION, ACCOUNT_ID, PATIENT_ID } from '../constants';
 
 export default function LandingScreen({
   navigation,
@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
 
 async function fetchOrders(): Promise<OrderType[]> {
   try {
-    const accountId = await AsyncStorage.getItem('accountId');
-    const patientId = await AsyncStorage.getItem('patientId');
+    const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
+    const patientId = await AsyncStorage.getItem(PATIENT_ID);
     const orders = (
       await axios.post(GET_ORDERS, {
         accountId,

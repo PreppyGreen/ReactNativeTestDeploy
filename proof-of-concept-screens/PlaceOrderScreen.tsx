@@ -9,6 +9,7 @@ import { POST_ORDER } from '../config';
 import uuid from 'uuid/v4';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from 'types/order';
+import { ACCOUNT_ID, PATIENT_ID } from '../constants';
 
 export default function PlaceOrderScreen({
   navigation,
@@ -20,8 +21,8 @@ export default function PlaceOrderScreen({
   const placeOrder = async () => {
     setLoading(true);
     try {
-			const accountId = await AsyncStorage.getItem('accountId');
-			const patientId = await AsyncStorage.getItem('patientId');
+			const accountId = await AsyncStorage.getItem(ACCOUNT_ID);
+			const patientId = await AsyncStorage.getItem(PATIENT_ID);
       const newOrder: OrderType = (
         await axios.post(POST_ORDER, {
           accountId,

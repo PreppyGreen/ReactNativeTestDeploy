@@ -20,7 +20,7 @@ import {
 import StyleProvider from './theme/StyleContext';
 import Reactotron from 'reactotron-react-native';
 import axios from 'axios';
-import { POST_USER, PHARMACY_ID } from './config';
+import { hasAccountDetailsInStorage, createAccount } from './utils';
 
 console.disableYellowBox = true; //Comment this out if you want to see the yellow warnings
 const AppNavigator = createStackNavigator(
@@ -46,21 +46,11 @@ export default function App() {
   useEffect(() => {
     async function setUserDetails() {
       try {
-        //create an account if there isn't one;
-        const accountId = await AsyncStorage.getItem('accountId');
-        const patientId = await AsyncStorage.getItem('patientId');
-        if (!accountId || !patientId) {
-          const user = (
-            await axios.post(POST_USER, {
-              email: '',
-              pharmacyId: PHARMACY_ID,
-            })
-          ).data;
-          await AsyncStorage.multiSet([
-            ['accountId', user.account.id],
-            ['patientId', user.patient.id],
-          ]);
-        }
+				//create an account if there isn't one;
+				const hasAccount = await hasAccountDetailsInStorage();
+        if (!hasAccount) {
+					await createAccount();
+				}
       } catch (e) {
         Reactotron.warn('Could not save account details to async storage');
         Reactotron.warn(e);
