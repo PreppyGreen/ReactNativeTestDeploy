@@ -28,7 +28,7 @@ export default function OrderViewScreen({
 	const refreshPage = async () => {
 		try {
 			const newestOrder = (await axios.get(`${GET_ORDER}/${order.id}`)).data;
-			navigation.push('OrderView', { order: newestOrder })
+			navigation.replace('OrderView', { order: newestOrder })
 		} catch (e) {
 			Reactotron.warn(e);
 		}
