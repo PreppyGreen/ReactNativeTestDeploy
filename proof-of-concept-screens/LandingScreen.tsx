@@ -170,7 +170,8 @@ function backgroundRunner() {
 				) {
 					setOrdersInStorage(latestOrders);//Store the orders in async storage because we can't actually setState from a background timer and compare it.
 					return PushNotification.localNotification({
-						message: 'You have an order ready to collect',
+						title: 'Avicenna Order Update',
+						message: 'Your order is ready to collect',
 					});
 				}
 			}
