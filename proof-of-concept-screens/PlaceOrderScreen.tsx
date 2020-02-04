@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { StyleContext } from '../theme/StyleContext';
-import { NavigationStackProp } from 'react-navigation-stack';
 import { percentageHeight, percentageWidth } from '../theme/utils';
+import { NavigationStackProp } from 'react-navigation-stack';
 import axios from 'axios';
 import { POST_ORDER } from '../config';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from 'types/order';
 import { getAccountDetails } from '../utils';
+import { Button } from 'react-native-elements';
+import LoadingSpinner from '../utils/LoadingSpinner';
 
 export default function PlaceOrderScreen({
   navigation,
@@ -47,13 +49,14 @@ export default function PlaceOrderScreen({
           )}
         </View>
       </TouchableOpacity>
+			<Button title="Scan barcode"
+				type="solid"
+				onPress={() => navigation.navigate('BarcodeScanner')}
+			/>
     </View>
   );
 }
 
-function LoadingSpinner() {
-  return <ActivityIndicator color="white" />;
-}
 const styles = StyleSheet.create({
   buttonContainer: {
 		backgroundColor: 'rgb(65, 137, 234)',

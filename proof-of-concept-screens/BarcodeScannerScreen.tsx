@@ -19,13 +19,11 @@ export default function BarcodeScan({
   return (
     <View style={styles.container}>
       <RNCamera
-
         style={styles.preview}
         onBarCodeRead={onBarCodeRead}
         ref={camera}>
 					<BarcodeMask />
       </RNCamera>
-
     </View>
   );
 }

@@ -10,14 +10,14 @@ import {
   CalendarScreen,
   AgendaScreen,
 	SliderScreen,
-	BarcodeScannerScreen,
-	BarcodeValueScreen,
 } from './screens';
 import {
   LandingScreen,
   PlaceOrderScreen,
   OrderPlacedScreen,
   OrderViewScreen,
+	BarcodeScannerScreen,
+	BarcodeValueScreen,
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 import Reactotron from 'reactotron-react-native';

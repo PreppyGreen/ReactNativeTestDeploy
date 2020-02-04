@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, ActivityIndicator } from 'react-native';
 
 const { height, width } = Dimensions.get("window")
 
