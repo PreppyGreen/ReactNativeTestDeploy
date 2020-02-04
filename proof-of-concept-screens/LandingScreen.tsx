@@ -4,9 +4,9 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-	TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -30,23 +30,22 @@ export default function LandingScreen({
   // Get the list of orders for this account
   useEffect(() => {
     Reactotron.log('On the landing screen');
-		fetchOrders()
-			.then(async (o) => {
-				await AsyncStorage.setItem('orders', JSON.stringify(o));
-				setOrders(o)
-			})
-		}, []);
+    fetchOrders().then(async o => {
+      await AsyncStorage.setItem('orders', JSON.stringify(o));
+      setOrders(o);
+    });
+  }, []);
 
-		// Setup a background task that will notify the users if any orders are ready to collect;
-		useEffect(() => {
-			//Only run this in dev mode
-			if (__DEV__) {
-				backgroundRunner();
-			}
+  // Setup a background task that will notify the users if any orders are ready to collect;
+  useEffect(() => {
+    //Only run this in dev mode
+    if (__DEV__) {
+      backgroundRunner();
+    }
   }, []);
 
   //Sort the orders into active and fulfilled(collected);
-	const { activeOrders, fulfilledOrders } = separateOrders(orders);
+  const { activeOrders, fulfilledOrders } = separateOrders(orders);
 
   return (
     <SafeAreaView style={styleContext.container}>
@@ -141,35 +140,42 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
-
 async function setOrdersInStorage(orders) {
-	await AsyncStorage.setItem('orders', JSON.stringify(orders));
+  await AsyncStorage.setItem('orders', JSON.stringify(orders));
 }
 async function getOrdersInStorage() {
-	return JSON.parse(await AsyncStorage.getItem('orders'));
+  return JSON.parse(await AsyncStorage.getItem('orders'));
 }
 
 function backgroundRunner() {
-	return BackgroundTimer.runBackgroundTimer(async () => {
-		Reactotron.log('Running background check');
-		const orders = await getOrdersInStorage();
-		fetchOrders().then(async (latestOrders) => {
-			for (const order of latestOrders) {
-				const prevOrder = orders.find(o => o.id === order.id);
-				if (
-					order.orderStatus == READY_FOR_COLLECTION &&
-					prevOrder.orderStatus != order.orderStatus
-				) {
-					setOrdersInStorage(latestOrders);//Store the orders in async storage because we can't actually setState from a background timer and compare it.
-					return PushNotification.localNotification({
-						title: 'Manage My Meds - Order Update',
-						message: 'Your order is ReadyToCollect',
-					});
-				}
-			}
-			setOrdersInStorage(latestOrders);
-		});
-	}, 10000)
+  return BackgroundTimer.runBackgroundTimer(async () => {
+    Reactotron.log('Running background check');
+    const oldOrders = await getOrdersInStorage();
+    const newOrders = await fetchOrders();
+
+    setOrdersInStorage(newOrders); //Store the orders in async storage because we can't read the latest orders in state.
+    if (hasANewOrder(oldOrders, newOrders)) {
+      return PushNotification.localNotification({
+        title: 'Manage My Meds - Order Update',
+        message: 'Your order is ReadyToCollect',
+      });
+    }
+  }, 10000);
+}
+
+function hasANewOrder(oldOrders, newOrders) {
+  // Loop through the latest orders and compare to previous orders
+  for (const order of newOrders) {
+    const prevOrder = oldOrders.find(o => o.id === order.id);
+    // This is the first time we've ordered anything
+    if (!prevOrder) {
+      return true;
+    } else if (
+      order.orderStatus == READY_FOR_COLLECTION &&
+      prevOrder.orderStatus != order.orderStatus
+    ) {
+      return true;
+    }
+  }
+  return false;
 }
