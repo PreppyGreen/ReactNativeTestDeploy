@@ -20,7 +20,7 @@ export default function BarcodeValueScreen({
   const styleContext = useContext(StyleContext);
   const barcode: Barcode = navigation.getParam('barcode');
   const [isLoading, setIsLoading] = useState(true);
-  const [itemInfo, setItemInfo] = useState(defaultItem);
+  const [itemInfo, setItemInfo] = useState(null);
 
   useEffect(() => {
     // When we get the barcode, we want to make a request to our medicinesearch API
@@ -28,14 +28,17 @@ export default function BarcodeValueScreen({
     // else we'll want to default it to one of our known ones.
     async function getMedicine() {
       try {
-        const { medicines } = await searchMedicine(barcode.data);
+				const { medicines } = await searchMedicine(barcode.data);
+
         if (medicines.length) {
-          setIsLoading(false);
           setItemInfo(medicines[0]);
-        }
+        } else {
+					setItemInfo(null);
+				}
+				setIsLoading(false)
         Reactotron.log({ medicines });
       } catch (e) {
-        Reactotron.log('An error occurred when searching for medicines', e);
+				Reactotron.log('An error occurred when searching for medicines', e);
       }
     }
     getMedicine();
