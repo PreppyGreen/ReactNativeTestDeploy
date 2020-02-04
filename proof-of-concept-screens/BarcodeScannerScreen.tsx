@@ -19,6 +19,7 @@ export default function BarcodeScan({
   return (
     <View style={styles.container}>
       <RNCamera
+				captureAudio={false}
         style={styles.preview}
         onBarCodeRead={onBarCodeRead}
         ref={camera}>

@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { StyleContext } from '../theme/StyleContext';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 import { NavigationStackProp } from 'react-navigation-stack';
 import axios from 'axios';
@@ -17,7 +16,6 @@ export default function PlaceOrderScreen({
   navigation: NavigationStackProp;
 }) {
   const [loading, setLoading] = useState(false);
-  const styleContext = useContext(StyleContext);
   const placeOrder = async () => {
     setLoading(true);
     try {
@@ -39,7 +37,7 @@ export default function PlaceOrderScreen({
     }
   };
   return (
-    <View style={styleContext.container}>
+    <View style={styles.container}>
       <TouchableOpacity onPress={placeOrder}>
         <View style={styles.buttonContainer}>
           {loading ? (
@@ -53,11 +51,22 @@ export default function PlaceOrderScreen({
 				type="solid"
 				onPress={() => navigation.navigate('BarcodeScanner')}
 			/>
+			<Button title="Search by name"
+				type="solid"
+				onPress={() => navigation.navigate('TextSearch')}
+			/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingTop: percentageHeight(35),
+		paddingBottom: percentageHeight(35),
+	},
   buttonContainer: {
 		backgroundColor: 'rgb(65, 137, 234)',
 		width: percentageWidth(35),
