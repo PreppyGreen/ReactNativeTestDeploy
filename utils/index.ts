@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { ACCOUNT_ID, PATIENT_ID, COLLECTED } from "../constants";
-import { POST_USER, PHARMACY_ID, GET_ORDERS, GET_ORDER } from '../config';
+import { POST_USER, PHARMACY_ID, GET_ORDERS, GET_ORDER, GET_MEDICINE } from '../config';
 import axios from 'axios';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from '../types/order';
+import { MedicineResponseType } from '../types/medicine';
 import uuid from 'uuid/v4';
 
 export async function hasAccountDetailsInStorage() {
@@ -93,5 +94,15 @@ export function separateOrders(orders) {
 	}
 	return {
 		activeOrders, fulfilledOrders
+	}
+}
+
+export async function searchMedicine(searchString: string): Promise<MedicineResponseType> {
+	try {
+		const { data } = await axios.post(GET_MEDICINE, { searchString });
+		return data;
+	} catch (e) {
+		Reactotron.log('Error occurred when trying to search medicines', e);
+		throw Error(e);
 	}
 }
