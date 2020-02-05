@@ -88,6 +88,7 @@ export async function fetchOrders(): Promise<OrderType[]> {
 export async function fetchOrder(orderId: string): Promise<OrderType> {
 	try {
 		const newestOrder: OrderType = (await axios.get(`${GET_ORDER}/${orderId}`)).data;
+		Reactotron.log('Fetching order', { newestOrder });
 		return newestOrder;
 	} catch (e) {
 		Reactotron.log('An error occurred when trying to fetch order', e);
