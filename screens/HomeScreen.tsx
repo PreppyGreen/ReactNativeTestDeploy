@@ -39,8 +39,8 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
           title="Reset account details"
           type="solid"
           onPress={async () => {
-            await removeAccount();
-            await createAccount();
+						await removeAccount();
+						navigation.navigate('Registration');
           }}
         />
       </ViewWithSpacer>
