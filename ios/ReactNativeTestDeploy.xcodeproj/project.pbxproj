@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ReactNativeTestDeployTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactNativeTestDeployTests.m */; };
 		038198761AD9403BB2694CED /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9017D369E13D4CC9AEBEA777 /* MaterialIcons.ttf */; };
@@ -61,7 +62,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ReactNativeTestDeployTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeTestDeployTests.m; sourceTree = "<group>"; };
 		00F1276CFCCB06E137358D05 /* Pods-ReactNativeTestDeploy-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeTestDeploy-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeTestDeploy-tvOS/Pods-ReactNativeTestDeploy-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* ReactNativeTestDeploy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativeTestDeploy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* manage my meds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "manage my meds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ReactNativeTestDeploy/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ReactNativeTestDeploy/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -211,7 +212,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* ReactNativeTestDeploy.app */,
+				13B07F961A680F5B00A75B9A /* manage my meds.app */,
 				00E356EE1AD99517003FC87E /* ReactNativeTestDeployTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* ReactNativeTestDeploy-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* ReactNativeTestDeploy-tvOSTests.xctest */,
@@ -298,7 +299,7 @@
 			);
 			name = ReactNativeTestDeploy;
 			productName = ReactNativeTestDeploy;
-			productReference = 13B07F961A680F5B00A75B9A /* ReactNativeTestDeploy.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* manage my meds.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* ReactNativeTestDeploy-tvOS */ = {
@@ -786,7 +787,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ReactNativeTestDeploy;
+				PRODUCT_NAME = "manage my meds";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -807,7 +808,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ReactNativeTestDeploy;
+				PRODUCT_NAME = "manage my meds";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
