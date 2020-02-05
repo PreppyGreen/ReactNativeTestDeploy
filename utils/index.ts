@@ -98,6 +98,7 @@ export function separateOrders(orders) {
 }
 
 export async function searchMedicine(searchString: string, barcodeScan: boolean): Promise<MedicineResponseType> {
+	Reactotron.log('Searching medicine with the following payload', { searchString, barcodeScan });
 	try {
 		const { data } = await axios.post(GET_MEDICINE_V2, {
 			searchString,
