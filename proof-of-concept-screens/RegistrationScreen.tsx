@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { percentageWidth, percentageHeight } from '../theme/utils';
+import { percentageWidth, percentageHeight, keyboardAvoidingBehaviour } from '../theme/utils';
 import Reactotron from 'reactotron-react-native';
 import { createAccount } from '../utils';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -33,7 +33,7 @@ export default function RegistrationScreen({
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <KeyboardAvoidingView behavior="padding" enabled>
+    <KeyboardAvoidingView behavior={keyboardAvoidingBehaviour} enabled>
       <ScrollView contentContainerStyle={styles.container}>
         <Label label="First name">
           <TextInput
