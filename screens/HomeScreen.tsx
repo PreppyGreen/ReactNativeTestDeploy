@@ -25,7 +25,7 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
           onPress={() => navigation.navigate('Landing')}
         />
       </ViewWithSpacer>
-      <ViewWithSpacer>
+      <ViewWithSpacer space={5}>
         <Button
 					title="Create an account"
 					type="solid"

@@ -7,6 +7,7 @@ import { MedicineType } from '../types/medicine';
 import { searchMedicine } from '../utils';
 import Reactotron from 'reactotron-react-native';
 import { percentageWidth } from '../theme/utils';
+import { Button } from 'react-native-elements';
 
 type Barcode = {
   data: any;
@@ -56,6 +57,12 @@ export default function BarcodeValueScreen({
   return (
     <View style={styleContext.container}>
       <Content />
+			{ !isLoading && itemInfo && (
+				<Button title="Order"
+					type="solid"
+					onPress={() => Reactotron.log('Do something')}
+				/>
+			)}
     </View>
   );
 }
