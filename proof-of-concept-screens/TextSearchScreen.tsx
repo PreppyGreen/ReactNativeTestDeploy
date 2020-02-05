@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     width: percentageWidth(75),
   },
   spinner: {
-    marginTop: percentageHeight(5),
+		marginTop: percentageHeight(5),
+		marginBottom: percentageHeight(5),
   },
   scanButton: {
     flex: 1,
