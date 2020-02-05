@@ -29,10 +29,6 @@ export default function BarcodeScan({
   );
 }
 
-function onBarCodeRead(e: any) {
-  Alert.alert('Barcode value is ' + e.data, 'Barcode type is ' + e.type);
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

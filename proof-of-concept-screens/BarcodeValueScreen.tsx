@@ -25,7 +25,7 @@ export default function BarcodeValueScreen({
   useEffect(() => {
     // When we get the barcode, we want to make a request to our medicinesearch API
     // If we know what it is - great! Just display it
-    // else we'll want to default it to one of our known ones.
+    // else we'll just say that it's not found
     async function getMedicine() {
       try {
 				const { medicines } = await searchMedicine(barcode.data);
@@ -52,6 +52,7 @@ export default function BarcodeValueScreen({
     ) : <Text style={styles.bigText}>
 			Not found
 		</Text>;
+
   return (
     <View style={styleContext.container}>
       <Content />
@@ -66,10 +67,3 @@ const styles = StyleSheet.create({
 		padding: percentageWidth(5),
   },
 });
-
-const defaultItem: MedicineType = {
-  description:
-    "Benylin Children's Chesty Coughs 50mg/5ml oral solution (McNeil Products Ltd) 125 ml",
-  gtin: '3574660509137',
-  snomed: '4986111000001103',
-};

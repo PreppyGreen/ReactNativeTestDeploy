@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -16,7 +15,7 @@ import { percentageHeight, percentageWidth } from '../theme/utils';
 export default function TextSearchScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
+  const [isSearching, setIsSearching] = useState(false); //Use this if we want to display a loading spinner whilst searching
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -57,6 +56,7 @@ export default function TextSearchScreen() {
     </KeyboardAvoidingView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
 		marginTop: percentageHeight(20),
