@@ -55,6 +55,9 @@ export default function TextSearchScreen({
           style={styles.input}
         />
         <TouchableOpacity
+					onPress={() => {
+						navigation.navigate('BarcodeScanner', { items });
+					}}
           style={{
             backgroundColor: 'rgb(65, 137, 234)',
 						width: percentageHeight(5),
