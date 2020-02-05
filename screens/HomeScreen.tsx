@@ -1,23 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { percentageHeight } from '../theme/utils';
 import { ACCOUNT_ID, PATIENT_ID } from '../constants';
 import Reactotron from 'reactotron-react-native';
-import { removeAccount, createAccount } from '../utils';
+import { removeAccount, hasAccountDetailsInStorage } from '../utils';
+import { SUCCESS_GREEN } from '../theme/colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default HomeScreen;
 
 function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
+	const [ showIsLoggedIn, setShowIsLoggedIn ] = useState(false);
+	useEffect(() => {
+		async function handleLoggedIn() {
+			if (await hasAccountDetailsInStorage()) {
+				setShowIsLoggedIn(true);
+				setTimeout(() => setShowIsLoggedIn(false), 3000);
+			}
+		}
+		handleLoggedIn();
+	}, []);
   const styleContext = useContext(StyleContext);
   return (
     <View
       style={styleContext.container}
       testID="app-home"
       accessibilityLabel="app-home">
+			{ showIsLoggedIn && <Text style={{
+				color: SUCCESS_GREEN,
+				position: 'absolute',
+				top: percentageHeight(5),
+				fontSize: 20
+			}}>
+				<Icon name="check-circle" color={SUCCESS_GREEN} size={20}/> Logged in
+				</Text>}
       <ViewWithSpacer>
         <Button
           title="Go to landing page"
