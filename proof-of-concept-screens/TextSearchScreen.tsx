@@ -8,22 +8,30 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import { searchMedicine } from '../utils';
+import { searchMedicine, makeOrder } from '../utils';
 import { MedicineResponseType } from '../types/medicine';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 import { Button } from 'react-native-elements';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import reactotron from 'reactotron-react-native';
+
 const DEBOUNCE_DELAY = 500;
-export default function TextSearchScreen({ navigation }: {navigation: NavigationStackProp}) {
+const MIN_LENGTH = 3;
+
+export default function TextSearchScreen({
+  navigation,
+}: {
+	navigation: NavigationStackProp;
+}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [isSearching, setIsSearching] = useState(false); //Use this if we want to display a loading spinner whilst searching
 
   const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
-
+	const [isMakingOrder, setIsMakingOrder] = useState(false);
   useEffect(() => {
-    if (debouncedSearchTerm) {
+    if (debouncedSearchTerm && debouncedSearchTerm.length >= MIN_LENGTH) {
       setIsSearching(true);
       searchMedicine(debouncedSearchTerm, false).then(
         (res: MedicineResponseType) => {
@@ -34,25 +42,32 @@ export default function TextSearchScreen({ navigation }: {navigation: Navigation
     } else {
       setData([]);
     }
-  }, [debouncedSearchTerm]);
+	}, [debouncedSearchTerm]);
 
+	const items = navigation.getParam('items') || [];
   return (
     <View>
-      <View style={{ flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <TextInput
           value={searchTerm}
           onChangeText={setSearchTerm}
           style={styles.input}
         />
-				<Icon.Button name="camera"
-					onPress={() => navigation.navigate('BarcodeScanner')}
-				/>
-
+        <Icon.Button
+          name="camera"
+					onPress={() => {
+						navigation.navigate('BarcodeScanner', { items })
+				}}
+        />
       </View>
       {isSearching ? (
         <ActivityIndicator color="black" size={40} style={styles.spinner} />
       ) : (
         <FlatList
+          contentContainerStyle={{
+            borderWidth: 1,
+            borderColor: 'black',
+          }}
           ListEmptyComponent={null}
           data={data}
           keyboardShouldPersistTaps="always"
@@ -60,17 +75,37 @@ export default function TextSearchScreen({ navigation }: {navigation: Navigation
             <TouchableOpacity
               style={styles.itemContainer}
               onPress={() => {
-								setSearchTerm(item.description || item.name);
-								navigation.navigate('BarcodeValue', { item })
-							}}>
+                setSearchTerm(item.description || item.name);
+                navigation.navigate('BarcodeValue', { items, item });
+              }}>
               <Text key={item.gtin}>{item.description || item.name}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={item => item.gtin}
         />
       )}
+      <Button
+        title={`Order ${items.length} item${items.length > 1 ? 's' : ''}`}
+				type="solid"
+				loading={isMakingOrder}
+        onPress={() => {
+					completeOrder();
+        }}
+      />
     </View>
-  );
+	);
+
+	async function completeOrder() {
+		if (!items.length) return;
+
+		setIsMakingOrder(true);
+		try {
+			const { data: order } = await makeOrder(items);
+			navigation.navigate('OrderView', { order });
+		} catch (e) {
+			reactotron.log('Could not complete order', e);
+		}
+	}
 }
 
 const styles = StyleSheet.create({
@@ -83,8 +118,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     borderWidth: 1,
     borderColor: 'black',
-		marginBottom: percentageHeight(1),
-		padding: percentageHeight(1),
+    marginBottom: percentageHeight(1),
+    padding: percentageHeight(1),
     width: percentageWidth(75),
   },
   itemText: {},
@@ -97,10 +132,10 @@ const styles = StyleSheet.create({
   },
   spinner: {
     marginTop: percentageHeight(5),
-	},
-	scanButton: {
-		flex: 1
-	}
+  },
+  scanButton: {
+    flex: 1,
+  },
 });
 function useDebounce(value: any, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);

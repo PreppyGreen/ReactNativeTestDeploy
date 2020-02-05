@@ -16,8 +16,10 @@ type Barcode = {
 export default function BarcodeValueScreen({
   navigation,
 }: {
-  navigation: NavigationStackProp<{
-		item: any
+	navigation: NavigationStackProp<{
+		barcode: any;
+		item: any;
+		items: any;
 	}>;
 }) {
   const styleContext = useContext(StyleContext);
@@ -25,6 +27,7 @@ export default function BarcodeValueScreen({
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [makingOrder, setMakingOrder] = useState(false);
+	const items = navigation.getParam('items') || [];
 
   useEffect(() => {
 		const itemFromProps = navigation.getParam('item');
@@ -79,16 +82,17 @@ export default function BarcodeValueScreen({
     ) : (
       <Text style={styles.bigText}>Not found</Text>
     );
-
   return (
     <View style={styleContext.container}>
       <Content />
       {!isLoading && item && (
         <Button
-          title="Order"
+          title="Add to order"
           loading={makingOrder}
           type="solid"
-          onPress={() => confirmOrder()}
+          onPress={() => {
+						navigation.navigate('PlaceOrder', { items: [ ...items, item ]})
+					}}
         />
       )}
     </View>

@@ -28,7 +28,7 @@ public class LaunchTest {
 				capabilities.setCapability("deviceName", "iPhone X");
 				capabilities.setCapability("autoAcceptAlerts",true);
 
-        capabilities.setCapability("app", "/Users/oliechan/Projects/Avicenna/spikes/ReactNativeTestDeploy/ReactNativeTestDeploy.app"); //TODO: Make this more reusable
+        capabilities.setCapability("app", "/Users/oliechan/Projects/Avicenna/spikes/ReactNativeTestDeploy/manage my meds.app"); //TODO: Make this more reusable
 
         URL url = new URL("http://localhost:4723/wd/hub");
 

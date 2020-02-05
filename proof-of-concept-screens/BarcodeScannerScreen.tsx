@@ -10,11 +10,12 @@ export default function BarcodeScan({
 	navigation: NavigationStackProp
 }) {
 	const camera = useRef(null);
+	const items = navigation.getParam('items') || [];
 	function onBarCodeRead(barcode: {
 		data: any;
 		type: any;
 	}) {
-		navigation.navigate('BarcodeValue', { barcode });
+		navigation.navigate('BarcodeValue', { barcode, items });
 	}
   return (
     <View style={styles.container}>

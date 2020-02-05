@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios:build": "react-native run-ios --configuration Release",
-    "postios:build": "rm -rf ReactNativeTestDeploy.app && cp -R ios/build/ReactNativeTestDeploy/Build/Products/Release-iphonesimulator/ReactNativeTestDeploy.app .",
+    "postios:build": "rm -rf \"manage my meds\".app && cp -R ios/build/ReactNativeTestDeploy/Build/Products/Release-iphonesimulator/\"manage my meds\".app .",
     "start": "react-native start",
     "test": "jest",
     "test:watch": "jest --watchAll",
