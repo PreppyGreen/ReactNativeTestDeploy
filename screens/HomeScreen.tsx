@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import { Button } from 'react-native-elements';
 import { StyleContext } from '../theme/StyleContext';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -18,25 +18,27 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
       style={styleContext.container}
       testID="app-home"
       accessibilityLabel="app-home">
-      <Button
-        title="Go to landing page"
-				type="solid"
-				style={{
-					marginBottom: percentageHeight(1),
-				}}
-        onPress={() => navigation.navigate('Landing')}
-      />
-      <Button
-        title="Reset account details"
-				type="solid"
-        style={{
-					marginBottom: percentageHeight(5),
-				}}
-        onPress={async () => {
-          await removeAccount();
-          await createAccount();
-        }}
-      />
+      <ViewWithSpacer>
+        <Button
+          title="Go to landing page"
+          type="solid"
+          style={{
+            marginBottom: percentageHeight(1),
+          }}
+          onPress={() => navigation.navigate('Landing')}
+        />
+      </ViewWithSpacer>
+      <ViewWithSpacer>
+        <Button
+          title="Reset account details"
+          type="solid"
+          onPress={async () => {
+            await removeAccount();
+            await createAccount();
+          }}
+        />
+      </ViewWithSpacer>
+
       <Button
         title="Go to the details screen"
         type="outline"
@@ -84,13 +86,13 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
         accessibilityLabel="go-to-slider-screen"
         onPress={() => navigation.navigate('Slider')}
       />
-			<Button
-				title="Go to the barcode scanner screen"
-				type="outline"
-				testID="go-to-barcode-screen"
-				accessibilityLabel="go-to-barcode-screen"
-				onPress={() => navigation.navigate('BarcodeScanner')}
-			/>
+      <Button
+        title="Go to the barcode scanner screen"
+        type="outline"
+        testID="go-to-barcode-screen"
+        accessibilityLabel="go-to-barcode-screen"
+        onPress={() => navigation.navigate('BarcodeScanner')}
+      />
     </View>
   );
 }
@@ -104,4 +106,8 @@ async function clearAccountDetails() {
   } catch (e) {
     Reactotron.log('Error removing account details:', e);
   }
+}
+
+function ViewWithSpacer({ children }: { children: any }) {
+  return <View style={{ marginBottom: percentageHeight(1) }}>{children}</View>;
 }
