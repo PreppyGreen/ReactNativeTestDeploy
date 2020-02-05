@@ -28,7 +28,7 @@ export default function BarcodeValueScreen({
     // else we'll just say that it's not found
     async function getMedicine() {
       try {
-				const { medicines } = await searchMedicine(barcode.data);
+				const { medicines } = await searchMedicine(barcode.data, true);
 
         if (medicines.length) {
           setItemInfo(medicines[0]);
@@ -48,7 +48,7 @@ export default function BarcodeValueScreen({
     isLoading  ? (
       <LoadingSpinner color="blue" />
     ) : itemInfo ? (
-      <Text style={styles.bigText}>{itemInfo.description}</Text>
+      <Text style={styles.bigText}>{ itemInfo.description || itemInfo.name }</Text>
     ) : <Text style={styles.bigText}>
 			Not found
 		</Text>;

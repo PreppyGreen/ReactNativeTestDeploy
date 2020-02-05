@@ -6,60 +6,68 @@ import {
   TextInput,
   FlatList,
   KeyboardAvoidingView,
-	Platform,
+  Platform,
+	ActivityIndicator,
 } from 'react-native';
 import { searchMedicine } from '../utils';
 import { MedicineResponseType } from '../types/medicine';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 
+const DEBOUNCE_DELAY = 500;
 export default function TextSearchScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [isSearching, setIsSearching] = useState(false); //Use this if we want to display a loading spinner whilst searching
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       setIsSearching(true);
-      searchMedicine(debouncedSearchTerm).then((res: MedicineResponseType) => {
-        setIsSearching(false);
-        setData(res.medicines);
-      });
+      searchMedicine(debouncedSearchTerm, false).then(
+        (res: MedicineResponseType) => {
+          setIsSearching(false);
+          setData(res.medicines);
+        },
+      );
     } else {
       setData([]);
     }
   }, [debouncedSearchTerm]);
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={
-			Platform.OS == 'ios' ? 'padding' : null
-		}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS == 'ios' ? 'padding' : null}>
       <TextInput
         value={searchTerm}
         onChangeText={setSearchTerm}
         style={styles.input}
       />
-      <FlatList
-        ListEmptyComponent={null}
-        data={data}
-        keyboardShouldPersistTaps="always"
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => setSearchTerm(item.description)}>
-            <Text key={item.gtin}>{item.description}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.gtin}
-      />
+      {isSearching ? (
+        <ActivityIndicator color="black" size={40} style={styles.spinner} />
+      ) : (
+        <FlatList
+          ListEmptyComponent={null}
+          data={data}
+          keyboardShouldPersistTaps="always"
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.itemContainer}
+              onPress={() => setSearchTerm(item.description || item.name)}>
+              <Text key={item.gtin}>{item.description || item.name}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.gtin}
+        />
+      )}
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-		marginTop: percentageHeight(20),
+    marginTop: percentageHeight(20),
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -76,7 +84,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     width: percentageWidth(75),
-  },
+	},
+	spinner: {
+		marginTop: percentageHeight(5),
+	},
 });
 function useDebounce(value: any, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);

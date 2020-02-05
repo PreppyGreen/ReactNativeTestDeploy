@@ -13,3 +13,5 @@ export const POST_USER =
 export const PHARMACY_ID = 'pha-9009eb99-59b2-49a6-9f32-2ec5cf5ca9f0';
 export const GET_MEDICINE =
 	'https://avicenna-backendservicespoc-medicinesearch.azurewebsites.net/api/medicinesearch';
+export const GET_MEDICINE_V2 =
+	'https://avicenna-backendservicespoc-medicinesearch2.azurewebsites.net/api/medicinesearch2';

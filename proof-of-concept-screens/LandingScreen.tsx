@@ -147,8 +147,14 @@ async function getOrdersInStorage() {
   return JSON.parse(await AsyncStorage.getItem('orders'));
 }
 
+const POLLING_INTERVAL = 5000;
 function backgroundRunner() {
+	// Pretty nasty - but should stop multiple backgroundRunner's being spawned
+	if (globalThis.runningBackgroundTask) {
+		return;
+	}
   return BackgroundTimer.runBackgroundTimer(async () => {
+		globalThis.runningBackgroundTask = true;
     Reactotron.log('Running background check');
     const oldOrders = await getOrdersInStorage();
     const newOrders = await fetchOrders();
@@ -160,7 +166,7 @@ function backgroundRunner() {
         message: 'Your order is ReadyToCollect',
       });
     }
-  }, 10000);
+  }, POLLING_INTERVAL);
 }
 
 function hasANewOrder(oldOrders, newOrders) {
@@ -168,7 +174,7 @@ function hasANewOrder(oldOrders, newOrders) {
   for (const order of newOrders) {
     const prevOrder = oldOrders.find(o => o.id === order.id);
     // This is the first time we've ordered anything
-    if (!prevOrder) {
+    if (!prevOrder && order.orderStatus == READY_FOR_COLLECTION) {
       return true;
     } else if (
       order.orderStatus == READY_FOR_COLLECTION &&

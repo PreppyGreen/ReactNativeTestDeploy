@@ -1,5 +1,6 @@
 export type MedicineType = {
-	description: string;
+	name: string;
+	description?: string;
 	gtin: string;
 	snomed: string;
 }
