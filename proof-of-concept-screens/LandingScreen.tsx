@@ -162,8 +162,8 @@ function backgroundRunner() {
     setOrdersInStorage(newOrders); //Store the orders in async storage because we can't read the latest orders in state.
     if (hasANewOrder(oldOrders, newOrders)) {
       return PushNotification.localNotification({
-        title: 'Manage My Meds - Order Update',
-        message: 'Your order is ReadyToCollect',
+        title: 'Order update',
+        message: 'Your order is ready to collect!',
       });
     }
   }, POLLING_INTERVAL);

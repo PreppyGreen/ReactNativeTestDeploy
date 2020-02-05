@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import { percentageHeight, percentageWidth } from '../theme/utils';
 import { NavigationStackProp } from 'react-navigation-stack';
-import axios from 'axios';
-import { POST_ORDER } from '../config';
 import Reactotron from 'reactotron-react-native';
-import { OrderType } from 'types/order';
-import { getAccountDetails } from '../utils';
 import { Button } from 'react-native-elements';
-import LoadingSpinner from '../utils/LoadingSpinner';
 import TextSearch from './TextSearchScreen';
-import TextSearchScreen from './TextSearchScreen';
+import { percentageHeight, percentageWidth } from '../theme/utils';
 
 export default function PlaceOrderScreen({
   navigation,
@@ -20,7 +14,7 @@ export default function PlaceOrderScreen({
   const [loading, setLoading] = useState(false);
   return (
     <KeyboardAvoidingView style={styles.container}>
-			<TextSearchScreen navigation={navigation}/>
+			<TextSearch navigation={navigation}/>
     </KeyboardAvoidingView>
   );
 }
