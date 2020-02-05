@@ -7,6 +7,7 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import { searchMedicine, makeOrder } from '../utils';
 import { MedicineResponseType } from '../types/medicine';
@@ -22,14 +23,14 @@ const MIN_LENGTH = 3;
 export default function TextSearchScreen({
   navigation,
 }: {
-	navigation: NavigationStackProp;
+  navigation: NavigationStackProp;
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [isSearching, setIsSearching] = useState(false); //Use this if we want to display a loading spinner whilst searching
 
   const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
-	const [isMakingOrder, setIsMakingOrder] = useState(false);
+  const [isMakingOrder, setIsMakingOrder] = useState(false);
   useEffect(() => {
     if (debouncedSearchTerm && debouncedSearchTerm.length >= MIN_LENGTH) {
       setIsSearching(true);
@@ -42,32 +43,34 @@ export default function TextSearchScreen({
     } else {
       setData([]);
     }
-	}, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm]);
 
-	const items = navigation.getParam('items') || [];
+  const items = navigation.getParam('items') || [];
   return (
-    <View>
+    <SafeAreaView>
       <View style={{ flexDirection: 'row' }}>
         <TextInput
           value={searchTerm}
           onChangeText={setSearchTerm}
           style={styles.input}
         />
-        <Icon.Button
-          name="camera"
-					onPress={() => {
-						navigation.navigate('BarcodeScanner', { items })
-				}}
-        />
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'rgb(65, 137, 234)',
+						width: percentageHeight(5),
+						height: percentageHeight(5),
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft: percentageWidth(1),
+            borderRadius: 2,
+          }}>
+          <Icon name="camera" color="white" size={percentageHeight(3)} />
+        </TouchableOpacity>
       </View>
       {isSearching ? (
         <ActivityIndicator color="black" size={40} style={styles.spinner} />
       ) : (
         <FlatList
-          contentContainerStyle={{
-            borderWidth: 1,
-            borderColor: 'black',
-          }}
           ListEmptyComponent={null}
           data={data}
           keyboardShouldPersistTaps="always"
@@ -75,7 +78,7 @@ export default function TextSearchScreen({
             <TouchableOpacity
               style={styles.itemContainer}
               onPress={() => {
-                setSearchTerm(item.description || item.name);
+                setSearchTerm('');
                 navigation.navigate('BarcodeValue', { items, item });
               }}>
               <Text key={item.gtin}>{item.description || item.name}</Text>
@@ -86,26 +89,26 @@ export default function TextSearchScreen({
       )}
       <Button
         title={`Order ${items.length} item${items.length > 1 ? 's' : ''}`}
-				type="solid"
-				loading={isMakingOrder}
+        type="solid"
+        loading={isMakingOrder}
         onPress={() => {
-					completeOrder();
+          completeOrder();
         }}
       />
-    </View>
-	);
+    </SafeAreaView>
+  );
 
-	async function completeOrder() {
-		if (!items.length) return;
+  async function completeOrder() {
+    if (!items.length) return;
 
-		setIsMakingOrder(true);
-		try {
-			const { data: order } = await makeOrder(items);
-			navigation.navigate('OrderView', { order });
-		} catch (e) {
-			reactotron.log('Could not complete order', e);
-		}
-	}
+    setIsMakingOrder(true);
+    try {
+      const { data: order } = await makeOrder(items);
+      navigation.navigate('OrderView', { order });
+    } catch (e) {
+      reactotron.log('Could not complete order', e);
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -124,10 +127,12 @@ const styles = StyleSheet.create({
   },
   itemText: {},
   input: {
+    padding: percentageHeight(1),
     fontSize: 20,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: 'black',
     color: 'black',
+    marginBottom: percentageHeight(2),
     width: percentageWidth(75),
   },
   spinner: {

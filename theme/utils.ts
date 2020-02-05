@@ -1,4 +1,4 @@
-import { Dimensions, ActivityIndicator } from 'react-native';
+import { Dimensions, ActivityIndicator, Platform } from 'react-native';
 
 const { height, width } = Dimensions.get("window")
 
@@ -14,3 +14,5 @@ function percentage(aspect: 'height' | 'width') {
 
 export const percentageHeight = percentage('height'),
 	percentageWidth = percentage('width');
+
+export const keyboardAvoidingBehaviour = Platform.OS == 'ios' ? 'padding' : null;

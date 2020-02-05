@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import React from 'react';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
-import Reactotron from 'reactotron-react-native';
-import { Button } from 'react-native-elements';
 import TextSearch from './TextSearchScreen';
-import { percentageHeight, percentageWidth } from '../theme/utils';
+import { percentageHeight, percentageWidth, keyboardAvoidingBehaviour } from '../theme/utils';
 
 export default function PlaceOrderScreen({
   navigation,
 }: {
   navigation: NavigationStackProp;
 }) {
-  const [loading, setLoading] = useState(false);
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={keyboardAvoidingBehaviour}>
 			<TextSearch navigation={navigation}/>
     </KeyboardAvoidingView>
   );
