@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
+  View,
   Text,
   TouchableOpacity,
   StyleSheet,
   TextInput,
   FlatList,
-  KeyboardAvoidingView,
-  Platform,
-	ActivityIndicator,
+  ActivityIndicator,
 } from 'react-native';
 import { searchMedicine } from '../utils';
 import { MedicineResponseType } from '../types/medicine';
 import { percentageHeight, percentageWidth } from '../theme/utils';
-
+import { Button } from 'react-native-elements';
+import { NavigationStackProp } from 'react-navigation-stack';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const DEBOUNCE_DELAY = 500;
-export default function TextSearchScreen() {
+export default function TextSearchScreen({ navigation }: {navigation: NavigationStackProp}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [isSearching, setIsSearching] = useState(false); //Use this if we want to display a loading spinner whilst searching
@@ -36,14 +37,18 @@ export default function TextSearchScreen() {
   }, [debouncedSearchTerm]);
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS == 'ios' ? 'padding' : null}>
-      <TextInput
-        value={searchTerm}
-        onChangeText={setSearchTerm}
-        style={styles.input}
-      />
+    <View>
+      <View style={{ flexDirection: 'row'}}>
+        <TextInput
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+          style={styles.input}
+        />
+				<Icon.Button name="camera"
+					onPress={() => navigation.navigate('BarcodeScanner')}
+				/>
+
+      </View>
       {isSearching ? (
         <ActivityIndicator color="black" size={40} style={styles.spinner} />
       ) : (
@@ -54,14 +59,17 @@ export default function TextSearchScreen() {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.itemContainer}
-              onPress={() => setSearchTerm(item.description || item.name)}>
+              onPress={() => {
+								setSearchTerm(item.description || item.name);
+								navigation.navigate('BarcodeValue', { item })
+							}}>
               <Text key={item.gtin}>{item.description || item.name}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={item => item.gtin}
         />
       )}
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -75,7 +83,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     borderWidth: 1,
     borderColor: 'black',
-    marginBottom: percentageHeight(1),
+		marginBottom: percentageHeight(1),
+		padding: percentageHeight(1),
     width: percentageWidth(75),
   },
   itemText: {},
@@ -83,11 +92,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderWidth: 1,
     borderColor: 'black',
+    color: 'black',
     width: percentageWidth(75),
+  },
+  spinner: {
+    marginTop: percentageHeight(5),
 	},
-	spinner: {
-		marginTop: percentageHeight(5),
-	},
+	scanButton: {
+		flex: 1
+	}
 });
 function useDebounce(value: any, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);

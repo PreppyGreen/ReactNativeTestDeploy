@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { percentageHeight, percentageWidth } from '../theme/utils';
 import { NavigationStackProp } from 'react-navigation-stack';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import { OrderType } from 'types/order';
 import { getAccountDetails } from '../utils';
 import { Button } from 'react-native-elements';
 import LoadingSpinner from '../utils/LoadingSpinner';
+import TextSearch from './TextSearchScreen';
+import TextSearchScreen from './TextSearchScreen';
 
 export default function PlaceOrderScreen({
   navigation,
@@ -16,56 +18,17 @@ export default function PlaceOrderScreen({
   navigation: NavigationStackProp;
 }) {
   const [loading, setLoading] = useState(false);
-  const placeOrder = async () => {
-    setLoading(true);
-    try {
-			const { accountId, patientId } = await getAccountDetails();
-			Reactotron.log({ accountId, patientId });
-      const newOrder: OrderType = (
-        await axios.post(POST_ORDER, {
-          accountId,
-          patientId,
-        })
-      ).data;
-      navigation.navigate('OrderView', {
-          order: newOrder,
-      });
-      setLoading(false);
-    } catch (e) {
-      Reactotron.warn('An error occurred when trying to add an order');
-      Reactotron.warn(e);
-    }
-  };
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={placeOrder}>
-        <View style={styles.buttonContainer}>
-          {loading ? (
-            <LoadingSpinner />
-          ) : (
-            <Text style={styles.text}>Order medicine</Text>
-          )}
-        </View>
-      </TouchableOpacity>
-			<Button title="Scan barcode"
-				type="solid"
-				onPress={() => navigation.navigate('BarcodeScanner')}
-			/>
-			<Button title="Search by name"
-				type="solid"
-				onPress={() => navigation.navigate('TextSearch')}
-			/>
-    </View>
+    <KeyboardAvoidingView style={styles.container}>
+			<TextSearchScreen navigation={navigation}/>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingTop: percentageHeight(35),
-		paddingBottom: percentageHeight(35),
+		paddingTop: percentageHeight(5),
 	},
   buttonContainer: {
 		backgroundColor: 'rgb(65, 137, 234)',

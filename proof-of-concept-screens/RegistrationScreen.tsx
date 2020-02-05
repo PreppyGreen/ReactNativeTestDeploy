@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {	ScrollView, View, Text, StyleSheet, TextInput, Picker } from "react-native";
+import {	ScrollView, View, Text, StyleSheet, TextInput, Picker, KeyboardAvoidingView } from "react-native";
 import { Button } from 'react-native-elements';
 import { percentageWidth, percentageHeight } from '../theme/utils';
 import Reactotron from 'reactotron-react-native';
@@ -24,6 +24,7 @@ export default function RegistrationScreen({
 	const [ title, setTitle ] = useState('');
 
 	return (
+		<KeyboardAvoidingView behavior="padding" enabled>
 		<ScrollView contentContainerStyle={styles.container}>
 			<Label label="First name">
 				<TextInput style={styles.textInput} textContentType="name" value={firstName} onChangeText={setFirstName}/>
@@ -68,6 +69,7 @@ export default function RegistrationScreen({
 				onPress={() => confirmAccount()}
 			/>
 		</ScrollView>
+		</KeyboardAvoidingView>
 	);
 
 	async function confirmAccount() {
@@ -100,7 +102,6 @@ const styles = StyleSheet.create({
 	container: {
 		// flex: 1,
 		justifyContent: 'flex-start',
-		marginTop: percentageHeight(5),
 		paddingBottom: percentageHeight(10),
 		alignItems: 'center'
 	},

@@ -27,6 +27,7 @@ export default function OrderViewScreen({
 	const refreshPage = async () => {
 		try {
 			const newestOrder = await fetchOrder(order.id);
+			Reactotron.log('Refresh page', { newestOrder })
 			navigation.navigate('OrderView', { order: newestOrder })
 		} catch (e) {
 			Reactotron.warn(e);

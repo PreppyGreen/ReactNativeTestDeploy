@@ -18,7 +18,6 @@ import {
   OrderViewScreen,
 	BarcodeScannerScreen,
 	BarcodeValueScreen,
-	TextSearchScreen,
 	RegistrationScreen,
 	ConfirmMedicineOrderScreen,
 } from './proof-of-concept-screens';
@@ -42,7 +41,6 @@ const AppNavigator = createStackNavigator(
 		OrderView: OrderViewScreen,
 		BarcodeScanner: BarcodeScannerScreen,
 		BarcodeValue: BarcodeValueScreen,
-		TextSearch: TextSearchScreen,
 		Registration: RegistrationScreen,
 		ConfirmMedicine: ConfirmMedicineOrderScreen,
   },
@@ -52,21 +50,6 @@ const AppNavigator = createStackNavigator(
 );
 
 export default function App() {
-  useEffect(() => {
-    async function setUserDetails() {
-      try {
-				//create an account if there isn't one;
-				const hasAccount = await hasAccountDetailsInStorage();
-        if (!hasAccount) {
-					await createAccount();
-				}
-      } catch (e) {
-        Reactotron.warn('Could not save account details to async storage');
-        Reactotron.warn(e);
-      }
-    }
-    setUserDetails();
-  }, []);
   const Navigator = createAppContainer(AppNavigator);
   return (
     <StyleProvider>
