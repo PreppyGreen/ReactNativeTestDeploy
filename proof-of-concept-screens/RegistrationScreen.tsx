@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import {	ScrollView, View, Text, StyleSheet, TextInput } from "react-native";
+import {	ScrollView, View, Text, StyleSheet, TextInput, Picker } from "react-native";
 import { Button } from 'react-native-elements';
 import { percentageWidth, percentageHeight } from '../theme/utils';
 import Reactotron from 'reactotron-react-native';
+import { createAccount } from '../utils';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({
+	navigation
+}: {
+	navigation: NavigationStackProp;
+}) {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ address1, setAddress1 ] = useState('');
@@ -12,8 +18,10 @@ export default function RegistrationScreen() {
 	const [ address3, setAddress3 ] = useState('');
 	const [ city, setCity ] = useState('');
 	const [ postcode, setPostcode ] = useState('');
-	const [ dob, setDob ] = useState('');
-	const [ phone, setPhone ] = useState('');
+	const [ dateOfBirth, setdateOfBirth ] = useState('');
+	const [ phoneNumber, setPhoneNumber ] = useState('');
+	const [ email, setEmail ] = useState('');
+	const [ title, setTitle ] = useState('');
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
@@ -22,6 +30,13 @@ export default function RegistrationScreen() {
 			</Label>
 			<Label label="Last name" >
 				<TextInput style={styles.textInput} textContentType="name" value={lastName} onChangeText={setLastName}/>
+			</Label>
+			<Label label="Title">
+				<Picker style={styles.textInput} selectedValue={title} onValueChange={setTitle}>
+					{ titles.map(t => (
+						<Picker.Item label={t} value={t} />
+					))}
+				</Picker>
 			</Label>
 			<Label label="Address line 1" >
 				<TextInput style={styles.textInput} textContentType="streetAddressLine1" value={address1} onChangeText={setAddress1}/>
@@ -38,20 +53,40 @@ export default function RegistrationScreen() {
 			<Label label="Postcode">
 				<TextInput style={styles.textInput} textContentType="postalCode" value={postcode} onChangeText={setPostcode} />
 			</Label>
-			<Label label="Date of birth (DD/MM/YYY)">
-				<TextInput style={styles.textInput} value={dob} onChangeText={setDob} />
+			<Label label="Date of birth (YYYY-MM-DD)">
+				<TextInput style={styles.textInput} value={dateOfBirth} onChangeText={setdateOfBirth} />
 			</Label>
 			<Label label="Phone number">
-				<TextInput style={styles.textInput} textContentType="telephoneNumber" value={phone} onChangeText={setPhone}/>
+				<TextInput style={styles.textInput} textContentType="telephoneNumber" value={phoneNumber} onChangeText={setPhoneNumber}/>
+			</Label>
+			<Label label="Email address">
+				<TextInput style={styles.textInput} textContentType="emailAddress" value={email} onChangeText={setEmail}/>
 			</Label>
 
 			<Button title="Confirm"
 				type="solid"
-				onPress={() => Reactotron.log('do something')}
+				onPress={() => confirmAccount()}
 			/>
 		</ScrollView>
 	);
+
+	async function confirmAccount() {
+		try {
+			await createAccount({
+				email, title, firstName, lastName, address1, address2, address3, city, postcode, dateOfBirth, phoneNumber
+			});
+			navigation.navigate('Landing');
+		} catch (e) {
+			Reactotron.log('Could not create an account', e);
+		}
+	}
 }
+
+const titles = [
+	'', 'Mr', 'Mrs', 'Miss', 'Ms', 'Mx', 'Sir', 'Dr', 'Lady', 'Lord',
+]
+
+
 function Label({ label, children }: {
 	label: string;
 	children: any;

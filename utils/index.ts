@@ -24,11 +24,23 @@ export async function getAccountDetails() {
 	}
 }
 
-export async function createAccount() {
+export async function createAccount(details: {
+	email: string;
+	title: string;
+	firstName: string;
+	lastName: string;
+	address1: string;
+	address2: string;
+	address3: string;
+	city: string;
+	postcode: string;
+	dateOfBirth: string;
+	phoneNumber: string;
+}) {
 	Reactotron.log('Creating account')
 	const user = (
 		await axios.post(POST_USER, {
-			email: `${uuid().replace('-', '')}@example.com`,
+			...details,
 			pharmacyId: PHARMACY_ID,
 		})
 	).data;
