@@ -22,13 +22,13 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
         <Button
           title="Go to landing page"
           type="solid"
-          style={{
-            marginBottom: percentageHeight(1),
-          }}
           onPress={() => navigation.navigate('Landing')}
         />
       </ViewWithSpacer>
       <ViewWithSpacer>
+        <Button title="Create an account" type="solid" onPress={() => {}} />
+      </ViewWithSpacer>
+      <ViewWithSpacer space={5}>
         <Button
           title="Reset account details"
           type="solid"
@@ -108,6 +108,9 @@ async function clearAccountDetails() {
   }
 }
 
-function ViewWithSpacer({ children }: { children: any }) {
-  return <View style={{ marginBottom: percentageHeight(1) }}>{children}</View>;
+function ViewWithSpacer({ children, space }: {
+	children: any;
+	space?: any
+}) {
+  return <View style={{ marginBottom: percentageHeight(space || 1) }}>{children}</View>;
 }
