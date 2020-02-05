@@ -19,6 +19,7 @@ import {
 	BarcodeScannerScreen,
 	BarcodeValueScreen,
 	TextSearchScreen,
+	RegistrationScreen
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 import Reactotron from 'reactotron-react-native';
@@ -41,6 +42,7 @@ const AppNavigator = createStackNavigator(
 		BarcodeScanner: BarcodeScannerScreen,
 		BarcodeValue: BarcodeValueScreen,
 		TextSearch: TextSearchScreen,
+		Registration: RegistrationScreen,
   },
   {
     initialRouteName: 'Home',

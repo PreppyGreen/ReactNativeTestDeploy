@@ -26,7 +26,13 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
         />
       </ViewWithSpacer>
       <ViewWithSpacer>
-        <Button title="Create an account" type="solid" onPress={() => {}} />
+        <Button
+					title="Create an account"
+					type="solid"
+					onPress={() => {
+						navigation.navigate('Registration');
+					}}
+				/>
       </ViewWithSpacer>
       <ViewWithSpacer space={5}>
         <Button
