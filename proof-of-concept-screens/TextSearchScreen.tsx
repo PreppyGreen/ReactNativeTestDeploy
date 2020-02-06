@@ -108,9 +108,10 @@ export default function TextSearchScreen({
     try {
       const { data: order } = await makeOrder(items);
       navigation.navigate('OrderView', { order });
+			setIsMakingOrder(false);
     } catch (e) {
       reactotron.log('Could not complete order', e);
-    }
+		}
   }
 }
 
