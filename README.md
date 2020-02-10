@@ -98,3 +98,18 @@ iOS
 cd ios
 pod install
 ```
+
+
+## react-native-azurenotificationhub
+
+NB removed @react-native-community/push-notification-ios
+
+```
+npm i react-native-azurenotificationhub
+```
+
+iOS
+```
+cd ios
+pod install
+```

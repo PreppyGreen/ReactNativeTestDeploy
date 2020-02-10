@@ -14,18 +14,12 @@ PODS:
     - AppCenter/Crashes
     - AppCenterReactNativeShared
     - React
-  - appcenter-push (2.6.1):
-    - AppCenter/Push
-    - AppCenterReactNativeShared
-    - React
   - AppCenter/Analytics (2.5.3):
     - AppCenter/Core
   - AppCenter/Auth (2.5.3):
     - AppCenter/Core
   - AppCenter/Core (2.5.3)
   - AppCenter/Crashes (2.5.3):
-    - AppCenter/Core
-  - AppCenter/Push (2.5.3):
     - AppCenter/Core
   - AppCenterReactNativeShared (2.6.1):
     - AppCenter/Core (= 2.5.3)
@@ -263,11 +257,12 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
+  - RNAzureNotificationHub (0.9.1):
+    - React
+    - WindowsAzureMessaging
   - RNCAsyncStorage (1.7.1):
     - React
   - RNCMaskedView (0.1.6):
-    - React
-  - RNCPushNotificationIOS (1.0.5):
     - React
   - RNGestureHandler (1.5.3):
     - React
@@ -277,6 +272,7 @@ PODS:
     - React
   - RNVectorIcons (6.6.0):
     - React
+  - WindowsAzureMessaging (1.0.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -284,7 +280,6 @@ DEPENDENCIES:
   - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
   - appcenter-auth (from `../node_modules/appcenter-auth/ios`)
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
-  - appcenter-push (from `../node_modules/appcenter-push/ios`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -317,9 +312,9 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNAzureNotificationHub (from `../node_modules/react-native-azurenotificationhub`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
-  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -331,6 +326,7 @@ SPEC REPOS:
     - AppCenter
     - AppCenterReactNativeShared
     - boost-for-react-native
+    - WindowsAzureMessaging
 
 EXTERNAL SOURCES:
   appcenter:
@@ -341,8 +337,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/appcenter-auth/ios"
   appcenter-crashes:
     :path: "../node_modules/appcenter-crashes/ios"
-  appcenter-push:
-    :path: "../node_modules/appcenter-push/ios"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -401,12 +395,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNAzureNotificationHub:
+    :path: "../node_modules/react-native-azurenotificationhub"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
-  RNCPushNotificationIOS:
-    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -424,7 +418,6 @@ SPEC CHECKSUMS:
   appcenter-analytics: 42e368870a904af67fd93f043f3efa75ffa772a2
   appcenter-auth: 654c082526b644975bd599d3c8aa237cc27e4559
   appcenter-crashes: bfc5c03a6ddcfa158fcf4217d1724fd52f45d12c
-  appcenter-push: 364163b8df17ec57588f8f14a29184405acb5de8
   AppCenterReactNativeShared: d90c7165b03171aff31ecbe1424a04b34f64d609
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
@@ -456,13 +449,14 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
+  RNAzureNotificationHub: 381d5db960ff599741e25863fbe960ab0e9e7a3e
   RNCAsyncStorage: 8539fc80a0075fcc9c8e2dff84cd22dc5bf1dacf
   RNCMaskedView: e5b99bc191945f157adeede68da9d424462de177
-  RNCPushNotificationIOS: 30ed75aa2981a4ee00b8a2c46599ff18a9c7fcf6
   RNGestureHandler: 02905abe54e1f6e59c081a10b4bd689721e17aa6
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: a55364dc1833101f836cee70975ce1fea615a12f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  WindowsAzureMessaging: 3ec1c2ca507508e9595c34f6cf977e0c447fdd87
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 946cdfeeae90a5c4e00a3b387ef25417dc358a68

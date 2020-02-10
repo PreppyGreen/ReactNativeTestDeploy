@@ -14,7 +14,7 @@ import Reactotron from 'reactotron-react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { percentageHeight } from '../theme/utils';
 import { OrderType } from '../types/order';
-import PushNotification from '../config/notifications';
+// import PushNotification from '../config/notifications';
 import BackgroundTimer from 'react-native-background-timer';
 import { READY_FOR_COLLECTION } from '../constants';
 import { fetchOrders, separateOrders } from '../utils';
@@ -160,12 +160,12 @@ function backgroundRunner() {
     const newOrders = await fetchOrders();
 
     setOrdersInStorage(newOrders); //Store the orders in async storage because we can't read the latest orders in state.
-    if (hasANewOrder(oldOrders, newOrders)) {
-      return PushNotification.localNotification({
-        title: 'Order update',
-        message: 'Your order is ready to collect!',
-      });
-    }
+    // if (hasANewOrder(oldOrders, newOrders)) {
+    //   return PushNotification.localNotification({
+    //     title: 'Order update',
+    //     message: 'Your order is ready to collect!',
+    //   });
+    // }
   }, POLLING_INTERVAL);
 }
 

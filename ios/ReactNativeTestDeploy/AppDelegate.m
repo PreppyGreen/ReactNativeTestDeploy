@@ -6,7 +6,7 @@
  */
 
 #import "AppDelegate.h"
-#import <RNCPushNotificationIOS.h>
+// #import <RNCPushNotificationIOS.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -16,59 +16,66 @@
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
 #import <AppCenterReactNativeAuth.h>
-#import <AppCenterReactNativePush.h>
 
 #import <UserNotifications/UserNotifications.h>
 
-@import AppCenterPush;
+#import <RNAzureNotificationHub/RCTAzureNotificationHubManager.h>
+
 @import AppCenterReactNativeShared;
 
 @implementation AppDelegate
 
-- (void)application:(UIApplication *)application
-    didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
-  // Pass the device token to MSPush.
-  [MSPush didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-
-}
-
+///start
 // Required to register for notifications
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-  [RNCPushNotificationIOS didRegisterUserNotificationSettings:notificationSettings];
+    [RCTAzureNotificationHubManager didRegisterUserNotificationSettings:notificationSettings];
 }
-
-- (void)application:(UIApplication *)application
-    didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
-
-  // Pass the error to MSPush.
-  [MSPush didFailToRegisterForRemoteNotificationsWithError:error];
-	  [RNCPushNotificationIOS didFailToRegisterForRemoteNotificationsWithError:error];
-
+ 
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [RCTAzureNotificationHubManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
+ 
+// Required for the registrationError event.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [RCTAzureNotificationHubManager didFailToRegisterForRemoteNotificationsWithError:error];
+}
+ 
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+    [RCTAzureNotificationHubManager didReceiveRemoteNotification:notification];
+}
+ 
 // Required for the localNotification event.
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-  [RNCPushNotificationIOS didReceiveLocalNotification:notification];
+    [RCTAzureNotificationHubManager didReceiveLocalNotification:notification];
 }
-- (void)application:(UIApplication *)application
-    didReceiveRemoteNotification:(NSDictionary *)userInfo
-         fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-	[RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+///end
 
-  NSDictionary *dictionary = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:[dictionary valueForKey:@"title"]
-                                                                message:[dictionary valueForKey:@"body"]
-                                                        preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
-                                              style:UIAlertActionStyleDefault
-                                            handler:^(UIAlertAction *action) {
-    [alert dismissViewControllerAnimated:YES completion:nil];
-  }];
-  [alert addAction:ok];
-  [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-}
+
+//- (void)application:(UIApplication *)application
+//    didReceiveRemoteNotification:(NSDictionary *)userInfo
+//         fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+////	[RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+//
+//  NSDictionary *dictionary = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+//  UIAlertController *alert = [UIAlertController alertControllerWithTitle:[dictionary valueForKey:@"title"]
+//                                                                message:[dictionary valueForKey:@"body"]
+//                                                        preferredStyle:UIAlertControllerStyleAlert];
+//  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+//                                              style:UIAlertActionStyleDefault
+//                                            handler:^(UIAlertAction *action) {
+//    [alert dismissViewControllerAnimated:YES completion:nil];
+//  }];
+//  [alert addAction:ok];
+//  [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -76,17 +83,17 @@
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"ReactNativeTestDeploy"
                                             initialProperties:nil];
-  [AppCenterReactNativeAuth register];
-  [AppCenterReactNative register];
-  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
-  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
-  [AppCenterReactNativePush register];
+//  [AppCenterReactNativeAuth register];
+//  [AppCenterReactNative register];
+//  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+//  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+//  [AppCenterReactNativePush register];
 
 
-  if (@available(iOS 10.0, *)) {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
-  }
+//  if (@available(iOS 10.0, *)) {
+//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//    center.delegate = self;
+//  }
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
