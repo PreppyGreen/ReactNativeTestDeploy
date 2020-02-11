@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect } from 'react';
-import { AlertIOS, NativeEventEmitter } from 'react-native';
+import { Alert, NativeEventEmitter } from 'react-native';
 import NotificationHubIOS from 'react-native-azurenotificationhub/index.ios';
 // import NotificationHub from 'react-native-azurenotificationhub';
+import Reactotron from 'reactotron-react-native';
 
 //Config
 const connectionString = 'Endpoint=sb://avicenna-notificationhubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=VcJovF3HHNuO76QMh+p8XPEvo42u8xC4E0KWumhtpBM='; // The Notification Hub connection string
@@ -31,45 +32,52 @@ export const NotificationContext = createContext({
 
 export function IOSNotifications({ children }: any) {
   function requestPermissions() {
-    // register: Fired when the user registers for remote notifications. The
-    // handler will be invoked with a hex string representing the deviceToken.
-    NotificationHubIOS.addEventListener('register', _onRegistered);
 
-    // registrationError: Fired when the user fails to register for remote
-    // notifications. Typically occurs when APNS is having issues, or the device
-    // is a simulator. The handler will be invoked with {message: string, code: number, details: any}.
-    NotificationHubIOS.addEventListener('registrationError', _onRegistrationError);
+    try
+    {
+      // register: Fired when the user registers for remote notifications. The
+      // handler will be invoked with a hex string representing the deviceToken.
+      NotificationHubIOS.addEventListener('register', _onRegistered);
 
-    // registerAzureNotificationHub: Fired when registration with azure notification hubs successful
-    // with object {success: true}
-    NotificationHubIOS.addEventListener('registerAzureNotificationHub', _onAzureNotificationHubRegistered);
+      // registrationError: Fired when the user fails to register for remote
+      // notifications. Typically occurs when APNS is having issues, or the device
+      // is a simulator. The handler will be invoked with {message: string, code: number, details: any}.
+      NotificationHubIOS.addEventListener('registrationError', _onRegistrationError);
 
-    // azureNotificationHubRegistrationError: Fired when registration with azure notification hubs
-    // fails with object {message: string, details: any}
-    NotificationHubIOS.addEventListener('azureNotificationHubRegistrationError', _onAzureNotificationHubRegistrationError);
+      // registerAzureNotificationHub: Fired when registration with azure notification hubs successful
+      // with object {success: true}
+      NotificationHubIOS.addEventListener('registerAzureNotificationHub', _onAzureNotificationHubRegistered);
 
-    // notification: Fired when a remote notification is received. The
-    // handler will be invoked with an instance of `AzureNotificationHubIOS`.
-    NotificationHubIOS.addEventListener('notification', _onRemoteNotification);
+      // azureNotificationHubRegistrationError: Fired when registration with azure notification hubs
+      // fails with object {message: string, details: any}
+      NotificationHubIOS.addEventListener('azureNotificationHubRegistrationError', _onAzureNotificationHubRegistrationError);
 
-    // localNotification: Fired when a local notification is received. The
-    // handler will be invoked with an instance of `AzureNotificationHubIOS`.
-    NotificationHubIOS.addEventListener('localNotification', _onLocalNotification);
+      // notification: Fired when a remote notification is received. The
+      // handler will be invoked with an instance of `AzureNotificationHubIOS`.
+      NotificationHubIOS.addEventListener('notification', _onRemoteNotification);
 
-    // Requests notification permissions from iOS, prompting the user's
-    // dialog box. By default, it will request all notification permissions, but
-    // a subset of these can be requested by passing a map of requested
-    // permissions.
-    // The following permissions are supported:
-    //  - `alert`
-    //  - `badge`
-    //  - `sound`
-    //
-    // returns a promise that will resolve when the user accepts,
-    // rejects, or if the permissions were previously rejected. The promise
-    // resolves to the current state of the permission of
-    // {alert: boolean, badge: boolean,sound: boolean }
-    NotificationHubIOS.requestPermissions();
+      // localNotification: Fired when a local notification is received. The
+      // handler will be invoked with an instance of `AzureNotificationHubIOS`.
+      NotificationHubIOS.addEventListener('localNotification', _onLocalNotification);
+
+      // Requests notification permissions from iOS, prompting the user's
+      // dialog box. By default, it will request all notification permissions, but
+      // a subset of these can be requested by passing a map of requested
+      // permissions.
+      // The following permissions are supported:
+      //  - `alert`
+      //  - `badge`
+      //  - `sound`
+      //
+      // returns a promise that will resolve when the user accepts,
+      // rejects, or if the permissions were previously rejected. The promise
+      // resolves to the current state of the permission of
+      // {alert: boolean, badge: boolean,sound: boolean }
+      NotificationHubIOS.requestPermissions();
+
+    } catch (e) {
+      Reactotron.log('Error requesting iOS permissions:', e)
+    }
   }
 
   function register() {
@@ -91,7 +99,7 @@ export function IOSNotifications({ children }: any) {
 
   function _onRegistered(deviceToken) {
     remoteNotificationsDeviceToken = deviceToken;
-    AlertIOS.alert(
+    Alert.prompt(
       'Registered For Remote Push',
       `Device Token: ${deviceToken}`,
       [{
@@ -102,7 +110,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onRegistrationError(error) {
-    AlertIOS.alert(
+    Alert.prompt(
       'Failed To Register For Remote Push',
       `Error (${error.code}): ${error.message}`,
       [{
@@ -113,7 +121,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onRemoteNotification(notification) {
-    AlertIOS.alert(
+    Alert.prompt(
       'Push Notification Received',
       'Alert message: ' + notification.getMessage(),
       [{
@@ -124,7 +132,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onAzureNotificationHubRegistered(registrationInfo) {
-    AlertIOS.alert('Registered For Azure notification hub',
+    Alert.prompt('Registered For Azure notification hub',
       'Registered For Azure notification hub'
       [{
         text: 'Dismiss',
@@ -134,7 +142,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onAzureNotificationHubRegistrationError(error) {
-    AlertIOS.alert(
+    Alert.prompt(
       'Failed To Register For Azure Notification Hub',
       `Error (${error.code}): ${error.message}`,
       [{
@@ -146,7 +154,7 @@ export function IOSNotifications({ children }: any) {
 
   function _onLocalNotification(notification){
     // Note notification will be object for iOS
-    AlertIOS.alert(
+    Alert.prompt(
       'Local Notification Received',
       'Alert message: ' + notification.getMessage(),
       [{
