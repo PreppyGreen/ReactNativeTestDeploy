@@ -1,51 +1,60 @@
-import React, { createContext, useContext } from 'react';
-import { AlertIOS } from 'react-native';
-import NotificationHub from 'react-native-azurenotificationhub/index.ios';
-
+import React, { createContext, useContext, useEffect } from 'react';
+import { AlertIOS, NativeEventEmitter } from 'react-native';
+import NotificationHubIOS from 'react-native-azurenotificationhub/index.ios';
+// import NotificationHub from 'react-native-azurenotificationhub';
 
 //Config
 const connectionString = '...'; // The Notification Hub connection string
 const hubName = '...';          // The Notification Hub name
 const tags = [];           // The set of tags to subscribe to
+// const PushNotificationEmitter = new NativeEventEmitter(NotificationHub);
+
+const NOTIF_REGISTER_AZURE_HUB_EVENT = 'azureNotificationHubRegistered';
+const NOTIF_AZURE_HUB_REGISTRATION_ERROR_EVENT = 'azureNotificationHubRegistrationError';
+const DEVICE_NOTIF_EVENT = 'remoteNotificationReceived';
+
+const senderID = '...';         // The Sender ID from the Cloud Messaging tab of the Firebase console
+
+
 
 var remoteNotificationsDeviceToken = '';  // The device token registered with APNS
 
 
 
 
-export const IOSNotificationContext = createContext({
+export const NotificationContext = createContext({
 	requestPermissions: () => {},
 	register: () => {},
 	unregister: () => {}
 });
 
 
-function IOSNotifications({ children }: any) {
+export function IOSNotifications({ children }: any) {
   function requestPermissions() {
     // register: Fired when the user registers for remote notifications. The
     // handler will be invoked with a hex string representing the deviceToken.
-    NotificationHub.addEventListener('register', _onRegistered);
+    NotificationHubIOS.addEventListener('register', _onRegistered);
 
     // registrationError: Fired when the user fails to register for remote
     // notifications. Typically occurs when APNS is having issues, or the device
     // is a simulator. The handler will be invoked with {message: string, code: number, details: any}.
-    NotificationHub.addEventListener('registrationError', _onRegistrationError);
+    NotificationHubIOS.addEventListener('registrationError', _onRegistrationError);
 
     // registerAzureNotificationHub: Fired when registration with azure notification hubs successful
     // with object {success: true}
-    NotificationHub.addEventListener('registerAzureNotificationHub', _onAzureNotificationHubRegistered);
+    NotificationHubIOS.addEventListener('registerAzureNotificationHub', _onAzureNotificationHubRegistered);
 
     // azureNotificationHubRegistrationError: Fired when registration with azure notification hubs
     // fails with object {message: string, details: any}
-    NotificationHub.addEventListener('azureNotificationHubRegistrationError', _onAzureNotificationHubRegistrationError);
+    NotificationHubIOS.addEventListener('azureNotificationHubRegistrationError', _onAzureNotificationHubRegistrationError);
 
     // notification: Fired when a remote notification is received. The
     // handler will be invoked with an instance of `AzureNotificationHubIOS`.
-    NotificationHub.addEventListener('notification', _onRemoteNotification);
+    NotificationHubIOS.addEventListener('notification', _onRemoteNotification);
 
     // localNotification: Fired when a local notification is received. The
     // handler will be invoked with an instance of `AzureNotificationHubIOS`.
-    NotificationHub.addEventListener('localNotification', _onLocalNotification);
+    NotificationHubIOS.addEventListener('localNotification', _onLocalNotification);
 
     // Requests notification permissions from iOS, prompting the user's
     // dialog box. By default, it will request all notification permissions, but
@@ -60,24 +69,25 @@ function IOSNotifications({ children }: any) {
     // rejects, or if the permissions were previously rejected. The promise
     // resolves to the current state of the permission of
     // {alert: boolean, badge: boolean,sound: boolean }
-    NotificationHub.requestPermissions();
+    NotificationHubIOS.requestPermissions();
   }
 
   function register() {
-    NotificationHub.register(remoteNotificationsDeviceToken, {connectionString, hubName, tags});
+    NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, tags});
   }
 
   function unregister() {
-		NotificationHub.unregister();
+		NotificationHubIOS.unregister();
 	}
 
-	return <IOSNotificationContext.Provider value={
+	return <NotificationContext.Provider value={{
 		requestPermissions,
 		register,
 		unregister
+	}
 	}>
 		{ children }
-	</IOSNotificationContext.Provider>
+	</NotificationContext.Provider>
 
   function _onRegistered(deviceToken) {
     remoteNotificationsDeviceToken = deviceToken;
@@ -146,3 +156,46 @@ function IOSNotifications({ children }: any) {
     );
   }
 }
+
+// export function AndroidNotifications({ children }) {
+// 	useEffect(() => {
+//     PushNotificationEmitter.addListener(DEVICE_NOTIF_EVENT, _onRemoteNotification);
+// 	}, []);
+
+//   function register() {
+//     PushNotificationEmitter.addListener(NOTIF_REGISTER_AZURE_HUB_EVENT, _onAzureNotificationHubRegistered);
+//     PushNotificationEmitter.addListener(NOTIF_AZURE_HUB_REGISTRATION_ERROR_EVENT, _onAzureNotificationHubRegistrationError);
+
+//     NotificationHub.register({connectionString, hubName, senderID, tags})
+//       .catch(reason => console.warn(reason));
+//   }
+
+//   function unregister() {
+//     NotificationHub.unregister()
+//       .catch(reason => console.warn(reason));
+// 	}
+
+
+// 	return (
+// 		<NotificationContext.Provider value={{
+// 			requestPermissions: () => {},
+// 			register,
+// 			unregister,
+// 		}}>
+// 			{ children }
+// 		</NotificationContext.Provider>
+// 	);
+
+//   function _onAzureNotificationHubRegistered(registrationID) {
+//     console.warn('RegistrationID: ' + registrationID);
+//   }
+
+//   function _onAzureNotificationHubRegistrationError(error) {
+//     console.warn('Error: ' + error);
+//   }
+
+//   function _onRemoteNotification(notification) {
+//     // Note notification will be a JSON string for android
+//     console.warn('Notification received: ' + notification);
+//   }
+// }

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, createContext } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -23,8 +23,7 @@ import {
 	NotificationScreen,
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
-import Reactotron from 'reactotron-react-native';
-import { hasAccountDetailsInStorage, createAccount } from './utils';
+import { IOSNotifications } from './AzureNotifications';
 
 console.disableYellowBox = true; //Comment this out if you want to see the yellow warnings
 const AppNavigator = createStackNavigator(
@@ -54,9 +53,11 @@ const AppNavigator = createStackNavigator(
 export default function App() {
   const Navigator = createAppContainer(AppNavigator);
   return (
-    <StyleProvider>
-      <Navigator />
-    </StyleProvider>
+		<IOSNotifications>
+			<StyleProvider>
+				<Navigator />
+			</StyleProvider>
+		</IOSNotifications>
   );
 }
 
