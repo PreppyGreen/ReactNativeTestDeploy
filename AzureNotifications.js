@@ -99,7 +99,7 @@ export function IOSNotifications({ children }: any) {
 
   function _onRegistered(deviceToken) {
     remoteNotificationsDeviceToken = deviceToken;
-    Alert.prompt(
+    Alert.alert(
       'Registered For Remote Push',
       `Device Token: ${deviceToken}`,
       [{
@@ -110,7 +110,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onRegistrationError(error) {
-    Alert.prompt(
+    Alert.alert(
       'Failed To Register For Remote Push',
       `Error (${error.code}): ${error.message}`,
       [{
@@ -121,9 +121,9 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onRemoteNotification(notification) {
-    Alert.prompt(
+    Alert.alert(
       'Push Notification Received',
-      'Alert message: ' + notification.getMessage(),
+      'Alert message: ' + JSON.stringify(notification.getMessage()),
       [{
         text: 'Dismiss',
         onPress: null,
@@ -142,7 +142,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onAzureNotificationHubRegistrationError(error) {
-    Alert.prompt(
+    Alert.alert(
       'Failed To Register For Azure Notification Hub',
       `Error (${error.code}): ${error.message}`,
       [{
@@ -154,9 +154,9 @@ export function IOSNotifications({ children }: any) {
 
   function _onLocalNotification(notification){
     // Note notification will be object for iOS
-    Alert.prompt(
+    Alert.alert(
       'Local Notification Received',
-      'Alert message: ' + notification.getMessage(),
+      'Alert message: ' + JSON.stringify(notification.getMessage()),
       [{
         text: 'Dismiss',
         onPress: null,
