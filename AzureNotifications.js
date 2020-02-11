@@ -3,11 +3,14 @@ import { Alert, NativeEventEmitter } from 'react-native';
 import NotificationHubIOS from 'react-native-azurenotificationhub/index.ios';
 // import NotificationHub from 'react-native-azurenotificationhub';
 import Reactotron from 'reactotron-react-native';
+import { ACCOUNT_ID } from './constants';
+import AsyncStorage from '@react-native-community/async-storage'
 
 //Config
 const connectionString = 'Endpoint=sb://avicenna-notificationhubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=VcJovF3HHNuO76QMh+p8XPEvo42u8xC4E0KWumhtpBM='; // The Notification Hub connection string
 const hubName = 'avicenna-notificationhub';          // The Notification Hub name
-const tags = [ 'test' ];           // The set of tags to subscribe to
+var tags = [ '', 'testAll' ];           // The set of tags to subscribe to
+var myTags = [];
 // const PushNotificationEmitter = new NativeEventEmitter(NotificationHub);
 
 const NOTIF_REGISTER_AZURE_HUB_EVENT = 'azureNotificationHubRegistered';
@@ -80,8 +83,12 @@ export function IOSNotifications({ children }: any) {
     }
   }
 
-  function register() {
-    NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, tags});
+  async function register() {
+    let accountId = await AsyncStorage.getItem(ACCOUNT_ID);
+
+    myTags = [ accountId ];
+
+    NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, myTags});
   }
 
   function unregister() {
@@ -101,7 +108,7 @@ export function IOSNotifications({ children }: any) {
     remoteNotificationsDeviceToken = deviceToken;
     Alert.alert(
       'Registered For Remote Push',
-      `Device Token: ${deviceToken}`,
+      `Device Token: ${deviceToken} tags:${JSON.stringify(myTags)}`,
       [{
         text: 'Dismiss',
         onPress: null,
@@ -112,7 +119,7 @@ export function IOSNotifications({ children }: any) {
   function _onRegistrationError(error) {
     Alert.alert(
       'Failed To Register For Remote Push',
-      `Error (${error.code}): ${error.message}`,
+      `Error (${error.code}): ${error.message} tags:${JSON.stringify(myTags)}`,
       [{
         text: 'Dismiss',
         onPress: null,
@@ -133,7 +140,7 @@ export function IOSNotifications({ children }: any) {
 
   function _onAzureNotificationHubRegistered(registrationInfo) {
     Alert.prompt('Registered For Azure notification hub',
-      'Registered For Azure notification hub'
+      'Registered For Azure notification hub: ' + JSON.stringify(myTags)
       [{
         text: 'Dismiss',
         onPress: null,
@@ -144,7 +151,7 @@ export function IOSNotifications({ children }: any) {
   function _onAzureNotificationHubRegistrationError(error) {
     Alert.alert(
       'Failed To Register For Azure Notification Hub',
-      `Error (${error.code}): ${error.message}`,
+      `Error (${error.code}): ${error.message} tags:${JSON.stringify(myTags)}`,
       [{
         text: 'Dismiss',
         onPress: null,
