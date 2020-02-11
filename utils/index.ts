@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { ACCOUNT_ID, PATIENT_ID, COLLECTED } from "../constants";
-import { POST_USER, PHARMACY_ID, GET_ORDERS, GET_ORDER, GET_MEDICINE, GET_MEDICINE_V2, POST_ORDER } from '../config';
+import { POST_USER, PHARMACY_ID, GET_ORDERS, GET_ORDER, GET_MEDICINE, POST_ORDER } from '../config';
 import axios from 'axios';
 import Reactotron from 'reactotron-react-native';
 import { OrderType } from '../types/order';
@@ -113,7 +113,7 @@ export function separateOrders(orders) {
 export async function searchMedicine(searchString: string, barcodeScan: boolean): Promise<MedicineResponseType> {
 	Reactotron.log('Searching medicine with the following payload', { searchString, barcodeScan });
 	try {
-		const { data } = await axios.post(GET_MEDICINE_V2, {
+		const { data } = await axios.post(GET_MEDICINE, {
 			searchString,
 			barcodeScan,
 		});
