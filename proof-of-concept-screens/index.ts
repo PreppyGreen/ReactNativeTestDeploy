@@ -7,3 +7,4 @@ export { default as BarcodeValueScreen } from './BarcodeValueScreen';
 export { default as TextSearchScreen } from './TextSearchScreen';
 export { default as RegistrationScreen } from './RegistrationScreen';
 export { default as ConfirmMedicineOrderScreen } from './ConfirmMedicineOrderScreen';
+export { default as NotificationScreen } from './NotificationScreen';

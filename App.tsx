@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect, useContext, createContext } from 'react';
+import { StyleSheet, View, TouchableOpacity  } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {
@@ -20,6 +20,7 @@ import {
 	BarcodeValueScreen,
 	RegistrationScreen,
 	ConfirmMedicineOrderScreen,
+	NotificationScreen,
 } from './proof-of-concept-screens';
 import StyleProvider from './theme/StyleContext';
 import Reactotron from 'reactotron-react-native';
@@ -43,6 +44,7 @@ const AppNavigator = createStackNavigator(
 		BarcodeValue: BarcodeValueScreen,
 		Registration: RegistrationScreen,
 		ConfirmMedicine: ConfirmMedicineOrderScreen,
+		Notification: NotificationScreen,
   },
   {
     initialRouteName: 'Home',

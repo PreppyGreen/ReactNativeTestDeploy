@@ -37,12 +37,12 @@ export default function LandingScreen({
   }, []);
 
   // Setup a background task that will notify the users if any orders are ready to collect;
-  useEffect(() => {
-    //Only run this in dev mode
-    if (__DEV__) {
-      backgroundRunner();
-    }
-  }, []);
+  // useEffect(() => {
+  //   //Only run this in dev mode
+  //   if (__DEV__) {
+  //     backgroundRunner();
+  //   }
+  // }, []);
 
   //Sort the orders into active and fulfilled(collected);
   const { activeOrders, fulfilledOrders } = separateOrders(orders);

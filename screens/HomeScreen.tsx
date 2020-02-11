@@ -65,6 +65,11 @@ function HomeScreen({ navigation }: { navigation: NavigationStackProp }) {
         />
       </ViewWithSpacer>
 
+			<Button
+				title="Go to notification screen"
+				type="solid"
+				onPress={() => navigation.navigate('Notification')}
+			/>
       <Button
         title="Go to the details screen"
         type="outline"
