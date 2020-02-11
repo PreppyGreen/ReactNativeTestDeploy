@@ -4,9 +4,9 @@ import NotificationHubIOS from 'react-native-azurenotificationhub/index.ios';
 // import NotificationHub from 'react-native-azurenotificationhub';
 
 //Config
-const connectionString = '...'; // The Notification Hub connection string
-const hubName = '...';          // The Notification Hub name
-const tags = [];           // The set of tags to subscribe to
+const connectionString = 'Endpoint=sb://avicenna-notificationhubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=VcJovF3HHNuO76QMh+p8XPEvo42u8xC4E0KWumhtpBM='; // The Notification Hub connection string
+const hubName = 'avicenna-notificationhub';          // The Notification Hub name
+const tags = [ 'test' ];           // The set of tags to subscribe to
 // const PushNotificationEmitter = new NativeEventEmitter(NotificationHub);
 
 const NOTIF_REGISTER_AZURE_HUB_EVENT = 'azureNotificationHubRegistered';
