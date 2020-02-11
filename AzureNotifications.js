@@ -139,7 +139,7 @@ export function IOSNotifications({ children }: any) {
   }
 
   function _onAzureNotificationHubRegistered(registrationInfo) {
-    Alert.prompt('Registered For Azure notification hub',
+    Alert.alert('Registered For Azure notification hub',
       'Registered For Azure notification hub: ' + JSON.stringify(myTags)
       [{
         text: 'Dismiss',
