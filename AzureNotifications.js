@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 //Config
 const connectionString = 'Endpoint=sb://avicenna-notificationhubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=VcJovF3HHNuO76QMh+p8XPEvo42u8xC4E0KWumhtpBM='; // The Notification Hub connection string
 const hubName = 'avicenna-notificationhub';          // The Notification Hub name
-var tags = [ 'testAll' ];           // The set of tags to subscribe to
+var tags = [ 'group:testAll' ];           // The set of tags to subscribe to
 var myTags = [];
 // const PushNotificationEmitter = new NativeEventEmitter(NotificationHub);
 
@@ -86,7 +86,7 @@ export function IOSNotifications({ children }: any) {
   async function register() {
     let accountId = await AsyncStorage.getItem(ACCOUNT_ID);
 
-    myTags = [ accountId ];
+    myTags = [ `accountId:${accountId}` ];
     myTags = myTags.concat(tags);
 
     NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, myTags});
