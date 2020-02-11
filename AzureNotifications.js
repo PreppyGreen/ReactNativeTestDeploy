@@ -89,7 +89,7 @@ export function IOSNotifications({ children }: any) {
     myTags = [ `accountId:${accountId}` ];
     myTags = myTags.concat(tags);
 
-    NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, myTags});
+    NotificationHubIOS.register(remoteNotificationsDeviceToken, {connectionString, hubName, tags: myTags});
   }
 
   function unregister() {
